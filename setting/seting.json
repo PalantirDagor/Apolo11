@@ -1,0 +1,24 @@
+{
+  "device_status": [
+      "excellent",
+      "warning",
+      "faulty",
+      "killed",
+      "unknown"
+  ],
+  "mission": [
+      "ORBONE",
+      "CLNM",
+      "TMRS",
+      "GALXONE",
+      "UNKN"
+  ],
+  "device_type": [
+      "nave",
+      "traje",
+      "satelite",
+      "transbordador"
+  ],
+  "simulation_cycle": 20,
+  "file_quantity": [1,100]
+}
