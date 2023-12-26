@@ -4,10 +4,10 @@ from random import (randrange, choice)
 class Utils:
 
     # genera el aleatorio de las listas de misiones, estados etc..
-    def generate_random(self, elements_list: list) -> str:
+    def generate_random(self, list_elements: list) -> str:
 
-        index: int  = randrange(start= len(elements_list))
-        element: str = elements_list[index]
+        index: int  = randrange(start= len(list_elements))
+        element: str = list_elements[index]
 
         return element
 
