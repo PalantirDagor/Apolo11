@@ -1,9 +1,16 @@
+0 :
+  mensaje: Proceso finalizado con exito
+  tipo: successful
+  estado: True
 1 :
   mensaje: No fue posible encontra la ruta de origen verifique que exista
   tipo: warning
+  estado: False
 2 :
-  mensaje: No fue posible encontra la ruta de destino verifique que exista
+  mensaje: No fue posible encontra la carpeta requerida verifique que exista
   tipo: warning
+  estado: False
 3 :
-  mensaje: No se encontro el archivo requerido
+  mensaje: No fue posible encontra el archivo requerido
   tipo: warning
+  estado: False
