@@ -17,5 +17,5 @@ device_type:
             - transbordador
 file_quantity:
             - 1
-            - 100
+            - 3
 simulation_cycle: 20

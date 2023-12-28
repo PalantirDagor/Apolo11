@@ -1,11 +1,12 @@
-from control_messages import Mensage
+
 import os
 import shutil
+from src.utilities.control_messages import Mensage as message
 
 class FileUtils:
 
     @classmethod
-    def Save(cls, name: str, path: str ,data: str) -> dict:
+    def Save(cls, name: str, path: str, data: list[str]) -> dict:
         """
          Save, Guarda en un archivo la informacion entregada        
         
@@ -28,11 +29,15 @@ class FileUtils:
                 os.makedirs(path)
                 
             with open(os.path.join(path,name), 'a') as file:
-                file.write(str(data) + '\n')
+                for row in data:
+                    file.write(str(row) + '\n')
                 
-            return  Mensage.build_message(id_mesage = 0)        
+            return  message.build_message(id_mesage = 0)    
+            #return None    
         except Exception as e:
-            return Mensage.build_message(0,str(e.args[1]),e.filename,e.filename2)
+            return message.build_message(0,str(e.args[1]),e.filename,e.filename2)
+            #return None
+    
     
     @classmethod
     def read_file(cls,path_file: str) -> str: 
@@ -52,6 +57,7 @@ class FileUtils:
         except Exception as e:
             return None
     
+    '''
     @classmethod
     def move_file(cls,origin_path: str,destination_path: str) -> dict:
         
@@ -72,7 +78,7 @@ class FileUtils:
         try:
             
             if not os.path.exists(origin_path):
-                return  Mensage.build_message(id_mesage = 1,part1_mesage = origin_path)
+                return  message.build_message(id_mesage = 1,part1_mesage = origin_path)
             
             if not os.path.exists(destination_path):
                 os.makedirs(destination_path)
@@ -84,9 +90,9 @@ class FileUtils:
                             os.path.join(destination_path, file)
                             )
 
-            return  Mensage.build_message(id_mesage = 0)          
+            return  message.build_message(id_mesage = 0)          
         except Exception as e:
-            return Mensage.build_message(0,str(e.args[1]),e.filename,e.filename2)
+            return message.build_message(0,str(e.args[1]),e.filename,e.filename2)
     
     @classmethod
     def delete_file(cls,path_file: str) -> dict:
@@ -102,13 +108,13 @@ class FileUtils:
         """
         try:
             if not os.path.exists(path_file):
-                return  Mensage.build_message(id_mesage = 3,part1_mesage = path_file)
+                return  message.build_message(id_mesage = 3,part1_mesage = path_file)
             
             os.remove(path_file)
             
-            return  Mensage.build_message(id_mesage = 0)        
+            return  message.build_message(id_mesage = 0)        
         except Exception as e:
-            return Mensage.build_message(0,str(e.args[1]),e.filename,e.filename2)
+            return message.build_message(0,str(e.args[1]),e.filename,e.filename2)
     
     @classmethod
     def clear_folder(cls,path_folder: str) -> dict:
@@ -125,17 +131,17 @@ class FileUtils:
         try:
             
             if not os.path.exists(path_folder):
-                return  Mensage.build_message(id_mesage = 2,part1_mesage = path_folder)
+                return  message.build_message(id_mesage = 2,part1_mesage = path_folder)
             
             files = os.listdir(path_folder)
             for file in files:
                 path_file = os.path.join(path_folder, file)
                 os.remove(path_file)
                 
-            return  Mensage.build_message(id_mesage = 0) 
+            return message.build_message(id_mesage = 0) 
               
         except Exception as e:
-            return Mensage.build_message(0,str(e.args[1]),e.filename,e.filename2)
+            return message.build_message(0,str(e.args[1]),e.filename,e.filename2)
 
     @classmethod
     def copy_file(cls,origin_path: str,destination_path: str) -> dict :
@@ -158,7 +164,7 @@ class FileUtils:
                     os.makedirs(destination_path)
                 
                 if not os.path.exists(origin_path):
-                    return  Mensage.build_message(id_mesage = 1,part1_mesage = origin_path)
+                    return  message.build_message(id_mesage = 1,part1_mesage = origin_path)
 
                 files = os.listdir(origin_path) 
                 
@@ -167,6 +173,12 @@ class FileUtils:
                                 os.path.join(destination_path, file)
                                 ) 
                     
-                return  Mensage.build_message(id_mesage = 0)      
+                return  message.build_message(id_mesage = 0)      
             except Exception as e:
-                return Mensage.build_message(0,str(e.args[1]),e.filename,e.filename2)
+                return message.build_message(0,str(e.args[1]),e.filename,e.filename2)
+
+mlist: list = [123, 345,566,777]
+
+FileUtils.Save("hola.txt","R:\Cursos\Python\ProyectoNASA\Apolo11\Files",mlist)
+
+'''
