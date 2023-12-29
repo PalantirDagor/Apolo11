@@ -2,7 +2,8 @@
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Apollo_11_insignia.png/800px-Apollo_11_insignia.png" alt="apolo 11" border="0"/>
 
 
-**Apolo11** es un programa diseñado con el objetivo de aprender y practicar el lenguaje **Python** dentro del esquema del bootcamp **Coding Up My Future**.Este proyecto se enfoca en proporcionar una base sólida de conocimientos teóricos y prácticos para los integrantes del grupo **16** el curso ya mencionado. Los objetivos a cumplir son:
+
+**Apolo11** es un programa diseñado con el objetivo de aprender y practicar el lenguaje **Python** dentro del esquema del bootcamp **Coding Up My Future**. Este proyecto se enfoca en proporcionar una base sólida de conocimientos teóricos y prácticos para los integrantes del grupo **16** del curso ya mencionado. Los objetivos a cumplir son:
 
 - Medir la comprensión profunda de los conceptos fundamentales y avanzados
 obtenidos en el Bootcamp y la capacidad para aplicarlos en situaciones 
@@ -25,7 +26,7 @@ desafiante.
 
 ## Estructura del proyecto
 
-El material del bootcamp estará disponible en las siguientes carpetas: 
+El material del poryecto estará disponible en las siguientes carpetas: 
 
 
 ```linux
