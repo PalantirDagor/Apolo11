@@ -29,8 +29,8 @@ class Simulator_Apolo11:
         row: dict = {"date": time.strftime('%Y%m%d%H%M%S'), "mission": mission}
         
         if mission != "UNKN":
-            row["device_type"] = util.generate_random(self.__configuration_file["device_type"])
-            row["device_status"] = util.generate_random(self.__configuration_file["device_status"])
+            row["device_type"] = util.generate_random2(self.__configuration_file["device_type"])
+            row["device_status"] = util.generate_random2(self.__configuration_file["device_status"])
             row["hash"] = util.generate_hash(row.get("date"), 
                                              row.get("mission"), 
                                              row.get("device_type"),
@@ -46,7 +46,7 @@ class Simulator_Apolo11:
 
     def create_file(self, rows: int = 1) -> None:
         l_rows_file: list = []
-        lv_mission: str = util.generate_random(list(self.__configuration_file["mission"]))
+        lv_mission: str = util.generate_random2(self.__configuration_file["mission"])
         #print(f"Star create files, mision: {lv_mission}")
         for i in range(0,rows):
             l_rows_file.append(self.generate_data(lv_mission))
@@ -77,8 +77,8 @@ class Simulator_Apolo11:
 
     def start_simulator(self):
         
-        ln_files: int = util.generate_random1(self.__configuration_file["file_quantity"][0], 
-                                              self.__configuration_file["file_quantity"][1])
+        ln_files: int = util.generate_random(self.__configuration_file["file_quantity"][0], 
+                                             self.__configuration_file["file_quantity"][1])
         
         print(f"Start simulator: _Nro Files: {ln_files}")
         for i in range(0, ln_files):
