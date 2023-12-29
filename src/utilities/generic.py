@@ -75,5 +75,5 @@ class Utils:
             -Puede servir para entregar un hash con buena encriptacion
         """
         
-        return str(hashlib.sha256(datos))
+        return str(hash(datos))
     
