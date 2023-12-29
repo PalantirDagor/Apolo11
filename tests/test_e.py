@@ -1,4 +1,15 @@
-import os
+import schedule
+import time
 
-print(os.path.join("Hola"))
-print(f"dir name {os.path.realpath.}")
+def mi_funcion():
+    print("Ejecutando la función...")
+    suma = 0
+    while True:
+        suma = suma +1 
+
+# Configura el trabajo programado
+schedule.every(2).seconds.do(mi_funcion())
+
+while True:
+    schedule.run_pending()
+    time.sleep(1)

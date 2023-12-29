@@ -57,7 +57,7 @@ class FileUtils:
         except Exception as e:
             return None
     
-    '''
+    
     @classmethod
     def move_file(cls,origin_path: str,destination_path: str) -> dict:
         
@@ -176,9 +176,3 @@ class FileUtils:
                 return  message.build_message(id_mesage = 0)      
             except Exception as e:
                 return message.build_message(0,str(e.args[1]),e.filename,e.filename2)
-
-mlist: list = [123, 345,566,777]
-
-FileUtils.Save("hola.txt","R:\Cursos\Python\ProyectoNASA\Apolo11\Files",mlist)
-
-'''

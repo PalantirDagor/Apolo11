@@ -1,3 +1,0 @@
-date,mission,device_type,device_status,hash
-20231228160734,TMRS,transbordador,killed,20231228160734TMRStransbordador
-20231228160734,TMRS,nave,killed,20231228160734TMRSnave
