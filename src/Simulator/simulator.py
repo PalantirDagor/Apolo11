@@ -1,13 +1,12 @@
 import yaml
 import os
-from datetime import datetime
+#from datetime import datetime
 import time
 
 from src.utilities.files import FileUtils as file
 from src.utilities.generic import Utils as util
 
 class Simulator_Apolo11:
-    
     def __init__(self, execution_number: int):
         
         self.__execution_number: int = execution_number
