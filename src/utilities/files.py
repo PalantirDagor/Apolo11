@@ -59,15 +59,20 @@ class FileUtils:
             return None
     
     @classmethod
-    def move_file(cls, origin_path: str, destination_path: str) -> dict:
+    def move_file(cls, 
+                  origin_path: str, 
+                  destination_path: str,
+                  filename:str = None) -> dict:
         
         """
         move_file, mueve los archivos de la ruta origen a una ruta destino, si el archivo ya existe en la ruta de destino este se remplazara
 
         Args:
-            origin_path (str): Ruta de origen de los archivos
+            origin_path (str): Ruta de origen de del archivo
         
             origin_path (str): Ruta de destino de los archivos
+            
+            filename (str): Nombre del archivo a copiar, si no se envia valor se copian todos los archivos de la ruta origen a destino
 
         Returns:
             Dict: Retorna diccionario con mensaje del resultado de la operacion, tipo de resultado (successful,warning) y un estado True si la operacion finalizo con exito o False en caso contrario 
@@ -82,13 +87,18 @@ class FileUtils:
         
             if not os.path.exists(destination_path):
                 os.makedirs(destination_path)
-        
-            files = os.listdir(origin_path)
-        
-            for file in files:
-                shutil.move(os.path.join(origin_path, file),
+            
+            if filename == None:
+                files = os.listdir(origin_path)
+                
+                for file in files:
+                    shutil.move(os.path.join(origin_path, file),
                             os.path.join(destination_path, file)
                             )
+            else:
+                    shutil.move(os.path.join(origin_path, filename),
+                                os.path.join(destination_path, filename)
+                                )
 
             return message.build_message(id_mesage = 0)
         except Exception as e:
@@ -146,7 +156,8 @@ class FileUtils:
     @classmethod
     def copy_file(cls, 
                   origin_path:str,
-                  destination_path:str) -> dict :
+                  destination_path:str,
+                  filename:str = None) -> dict :
             """
             copy_file, copia los archivos de la ruta origen a una ruta destino, si el archivo ya existe en la ruta de destino este se remplazara
 
@@ -154,6 +165,8 @@ class FileUtils:
                 origin_path (str): Ruta de origen de los archivos
             
                 origin_path (str): Ruta de destino de los archivos
+                
+                filename (str): Nombre del archivo a copiar, si no se envia valor se copian todos los archivos de la ruta origen a destino
 
             Returns:
                 Dict: Retorna diccionario con mensaje del resultado de la operacion, tipo de resultado (successful,warning) y un estado True si la operacion finalizo con exito o False en caso contrario 
@@ -167,12 +180,17 @@ class FileUtils:
                 
                 if not os.path.exists(origin_path):
                     return message.build_message(id_mesage = 1, part1_mesage = origin_path)
-
-                files = os.listdir(origin_path)
-
-                for file in files:
-                    shutil.copy(os.path.join(origin_path, file),
+                
+                if filename == None:
+                    files = os.listdir(origin_path)
+                    
+                    for file in files:
+                        shutil.copy(os.path.join(origin_path, file),
                                 os.path.join(destination_path, file)
+                                )
+                else:
+                    shutil.copy(os.path.join(origin_path, filename),
+                                os.path.join(destination_path, filename)
                                 )
 
                 return message.build_message(id_mesage=0)
