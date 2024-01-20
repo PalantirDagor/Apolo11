@@ -17,6 +17,7 @@ import argparse
 import yaml
 import os
 
+
 class file:
     
     @classmethod 
@@ -36,9 +37,7 @@ def guardar_listas_en_archivo(archivo, misiones, estados):
 
 def main():
     
-    # Configuración de argparse
 
-    
     parser = argparse.ArgumentParser(
                     prog='BootcampDemo',
                     description='Manejo de listas de misiones y estados.',
@@ -59,18 +58,18 @@ def main():
     misiones = dats["mission"]
     estados = dats["device_status"]
 
-    # Validar que se haya especificado una lista
+
     if not args.lista:
         print('Debes especificar la lista a la que afectar.')
         return
 
-    # Imprimir la lista actual
+
     if args.lista == 'misiones':
         print(f'Lista de misiones actual: {misiones}')
     elif args.lista == 'estados':
         print(f'Lista de estados actual: {estados}')
 
-    # Añadir elemento a la lista
+
     if args.agregar:
         if args.lista == 'misiones':
             misiones.append(args.agregar)
@@ -78,7 +77,7 @@ def main():
             estados.append(args.agregar)
         print(f'Elemento añadido a la lista {args.lista}: {args.agregar}')
 
-    # Quitar elemento de la lista
+
     if args.quitar:
         if args.lista == 'misiones' and args.quitar in misiones:
             misiones.remove(args.quitar)
@@ -89,10 +88,7 @@ def main():
         else:
             print(f'Elemento no encontrado en la lista {args.lista}: {args.quitar}')
 
-    # Guardar listas actualizadas en el archivo YAML
-    # guardar_listas_en_archivo(args.archivo, misiones, estados)
 
-    # Imprimir la lista actualizada
     if args.lista == 'misiones':
         print(f'Lista de misiones actualizada: {misiones}')
     elif args.lista == 'estados':
@@ -100,4 +96,4 @@ def main():
 
 if __name__ == '__main__':
     main()
-
+    

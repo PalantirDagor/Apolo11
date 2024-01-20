@@ -1,6 +1,5 @@
 import shutil
 import os
-
 from src.utilities.control_messages import Mensage as message
 
 
@@ -34,12 +33,12 @@ class FileUtils:
                 for row in data:
                     file.write(str(row) + '\n')
 
-            return message.build_message(id_mesage = 0)
+            return message.build_message(id_mesage=0)
         except Exception as e:
             return message.build_message(0, str(e.args[1]), e.filename, e.filename2)
 
     @classmethod
-    def read_file(cls, path_file: str) -> str:
+    def read_file(cls, path_file: str) -> dict:
         """
         read_file, lee la informacion contenida en el archivo especificado y lo retorna como un string
 
@@ -50,11 +49,11 @@ class FileUtils:
             str: Retorna string con el contenido del archivo leeido, en caso de un error retorna un valor None
         """
         try:
-
             with open(path_file) as file:
-                return file.read()
-        except Exception:
-            return None
+                read = file.read()
+                return message.build_message(id_mesage=0, obj=read)
+        except Exception as e:
+            return message.build_message(0, str(e.args[1]))
 
     @classmethod
     def move_file(cls,
@@ -84,7 +83,7 @@ class FileUtils:
         try:
 
             if not os.path.exists(origin_path):
-                return message.build_message(id_mesage = 1, part1_mesage = origin_path)
+                return message.build_message(id_mesage=1, part1_mesage=origin_path)
             if not os.path.exists(destination_path):
                 os.makedirs(destination_path)
 
@@ -96,102 +95,6 @@ class FileUtils:
                                 os.path.join(destination_path, file))
             else:
                 shutil.move(os.path.join(origin_path, filename),
-                            os.path.join(destination_path, filename))
-
-            return message.build_message(id_mesage = 0)
-        except Exception as e:
-            return message.build_message(0, str(e.args[1]), e.filename, e.filename2)
-
-    @classmethod
-    def delete_file(cls, path_file: str) -> dict:
-        """
-        delete_file, elimina el archivo especificado
-
-        Args:
-            path_file (str): Ruta del archivo a eliminar
-
-        Returns:
-            Dict: Retorna diccionario con mensaje del resultado de la operacion, tipo de resultado
-            (successful,warning) y un estado True si la operacion finalizo con exito o False en caso contrario
-
-        """
-        try:
-            if not os.path.exists(path_file):
-                return message.build_message(id_mesage = 3, part1_mesage = path_file)
-
-            os.remove(path_file)
-
-            return message.build_message(id_mesage = 0)
-        except Exception as e:
-            return message.build_message(0, str(e.args[1]), e.filename, e.filename2)
-
-    @classmethod
-    def clear_folder(cls, path_folder: str) -> dict:
-        """
-        clear_folder, elimina los archivos contenidos dentro de la carpeta especificada
-
-        Args:
-            path_folder (str): Ruta de la carpeta a limpiar
-
-        Returns:
-            Dict: Retorna diccionario con mensaje del resultado de la operacion, tipo de resultado
-            (successful,warning) y un estado True si la operacion finalizo con exito o False en caso contrario
-        """
-
-        try:
-
-            if not os.path.exists(path_folder):
-                return message.build_message(id_mesage = 2, part1_mesage = path_folder)
-
-            files = os.listdir(path_folder)
-            for file in files:
-                path_file = os.path.join(path_folder, file)
-                os.remove(path_file)
-
-            return message.build_message(id_mesage = 0)
-
-        except Exception as e:
-            return message.build_message(0, str(e.args[1]), e.filename, e.filename2)
-
-    @classmethod
-    def copy_file(cls,
-                  origin_path: str,
-                  destination_path: str,
-                  filename: str = None) -> dict:
-        """
-            copy_file, copia los archivos de la ruta origen a una ruta destino,
-            si el archivo ya existe en la ruta de destino este se remplazara
-
-            Args:
-                origin_path (str): Ruta de origen de los archivos
-
-                origin_path (str): Ruta de destino de los archivos
-
-                filename (str): Nombre del archivo a copiar, si no se envia valor se copian todos
-                los archivos de la ruta origen a destino
-
-            Returns:
-                Dict: Retorna diccionario con mensaje del resultado de la operacion, tipo de resultado
-                (successful,warning) y un estado True si la operacion finalizo con exito o False en caso contrario
-
-            Note:
-                Si el archivo ya existe en la ruta de destino este se remplazara
-        """
-        try:
-            if not os.path.exists(destination_path):
-                os.makedirs(destination_path)
-
-            if not os.path.exists(origin_path):
-                return message.build_message(id_mesage = 1, part1_mesage = origin_path)
-
-            if filename is None:
-                files = os.listdir(origin_path)
-
-                for file in files:
-                    shutil.copy(os.path.join(origin_path, file),
-                                os.path.join(destination_path, file))
-            else:
-                shutil.copy(os.path.join(origin_path, filename),
                             os.path.join(destination_path, filename))
 
             return message.build_message(id_mesage=0)

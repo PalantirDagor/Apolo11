@@ -1,102 +1,89 @@
 import os
 import json
 import pandas as pd
-import shutil
 import time
-import matplotlib.pyplot as plt
-import seaborn as sns
-#from src.utilities.files import FileUtils as file
-
-class file:
-    
-    @classmethod 
-    def read_file(cls,path_file: str) -> str: 
-        with open(path_file) as file:
-            return file.read()
-        
-    @classmethod
-    def move_file(cls, 
-                origin_path: str, 
-                destination_path: str,
-                filename:str = None) -> dict:
-        
-            
-            
-        if not os.path.exists(origin_path):
-            return False
-
-        if not os.path.exists(destination_path):
-            os.makedirs(destination_path)
-
-            if filename is None:
-                files = os.listdir(origin_path)
-
-                for file in files:
-                    shutil.move(os.path.join(origin_path, file),
-                                os.path.join(destination_path, file))
-            else:
-                shutil.move(os.path.join(origin_path, filename),
-                            os.path.join(destination_path, filename)
-                            )
-
-        return True
-
-    @classmethod
-    def Save(cls, name: str, path: str, data: list[str]):
-        if not os.path.exists(path):
-            os.makedirs(path)
-
-        with open(os.path.join(path, name), 'a') as file:
-            for row in data:
-                file.write(str(row) + '\n')
+from typing import List
+from src.utilities.files import FileUtils as file
+from src.utilities.control_messages import Mensage as message
 
 
 class Report:
 
-    def __init__(self):
+    def __init__(self, name_report):
         self.__folder_path: str = os.path.join("Files", "Devices")
         self.__date_report = str(time.strftime('%Y%m%d%H%M%S'))
         self.__folder_backup: str = os.path.join("Files", "Backup", self.__date_report)
         self.__folder_report: str = os.path.join("Files", "Report", self.__date_report)
-        self.__name_report = f"APLSTATS-Control_Panel-{self.__date_report}.log"
+        self.__name_report = f"APLSTATS-{name_report}-{self.__date_report}.log"
         self.__name_consolidated = f"APLSTATS-Consolidated_Files-{self.__date_report}.log"
 
-    def consolidate_files(self):
-        records = []
+    def start_process(self) -> dict:
+        """Orquestador de la generacion de reportes
 
-        for file_name in os.listdir(self.__folder_path):
-            file_path = os.path.join(self.__folder_path, file_name)
-            lines = file.read_file(file_path).splitlines()
-            for line in lines:
-                data = json.loads(line.replace("'", "\""))
-                record = list(data.values())
-                records.append(record)
+        Returns:
+            Dict: Retorna diccionario con mensaje del resultado de la operacion, tipo de resultado
+            (successful,warning) un state (True o False) si la operacion finalizo con exito o algo fallo respectivamente
+            y un atributo object con el listado de datos leidos
+        """
+        try:
+            # 1. Consolido los datos
+            consolidate_events = self.consolidate_files().get("object")
 
-        return list(records)
+            # 2. Creo un archivo con los datos consolidados
+            file.Save(self.__name_consolidated, self.__folder_report, consolidate_events)
 
-    def save_in_dashboard(self, data, title):
+            # 3. Creo un DataFrame con los datos concolidados
+            df = pd.DataFrame(consolidate_events, columns=['date', 'mission', 'device_type', 'device_status', 'hash'])
 
-        info: list[str] = []
+            # 4. Genero los diferentes tipos de reportes
+            self.generate_dashboard(df)
 
-        head = f'''
-        {'-' * len(title)}
-        {title}
-        {'-' * len(title)}
-        '''
+            return message.build_message(id_mesage=0)
+        except Exception as e:
+            return message.build_message(0, str(e.args[1]))
 
-        file.Save(self.__name_report, self.__folder_report, [head])
+    def consolidate_files(self) -> dict:
 
-        if isinstance(data, pd.core.frame.DataFrame):
-            info = [str(row) for row in data.to_string(index=False).split('\n')]
-        else:
-            info.append(str(data))
+        """Consolidad en una única lista los datos de los archivos reportados por las misiones
 
-        file.Save(self.__name_report, self.__folder_report, info)
-    
+        Returns:
+            list[str]: Retorna los eventos como una lista de string
+
+        Returns:
+            Dict: Retorna diccionario con mensaje del resultado de la operacion, tipo de resultado
+            (successful,warning) un state (True o False) si la operacion finalizo con exito o algo fallo respectivamente
+            y un atributo object con el listado de datos leidos
+        """
+
+        try:
+            records: List[str] = []
+
+            for file_name in os.listdir(self.__folder_path):
+                file_path = os.path.join(self.__folder_path, file_name)
+                lines = file.read_file(file_path).get("object")
+
+                if lines is not None:
+                    lines = lines.splitlines()
+                    for line in lines:
+                        data = json.loads(line.replace("'", "\""))
+                        record = list(data.values())
+                        records.append(record)
+
+            return message.build_message(id_mesage=0, obj=list(records))
+        except Exception as e:
+            return message.build_message(0, str(e.args[1]))
+
     def add_header():
         def decorador(func):
-            def wrapper(self, data, title):
-                
+            """Recibe una función y le aplica un estilo al titulo
+
+            Args:
+                func (function): funcion que recibe
+            """
+            def wrapper(self,
+                        data: pd.core.frame.DataFrame,
+                        title: str):
+
                 head = f"""
                 {'*' * len(title)}
                 {title}
@@ -106,25 +93,53 @@ class Report:
 
             return wrapper
         return decorador
-    
+
     @add_header()
-    def save_in_dashboard(self, data, title):
+    def save_in_dashboard(self,
+                          data: pd.core.frame.DataFrame,
+                          title: str) -> dict:
 
-        info: list[str] = []
-        
-        if isinstance(data, pd.core.frame.DataFrame):
-            info = [str(row) for row in data.to_string(index=False).split('\n')]
-        else:
-            info.append(str(data))
-        
-        # Agrego un titulo al conjunto de datos
-        file.Save(self.__name_report, self.__folder_report, [title])
-        
-        # Agrego el conjunto de datos
-        file.Save(self.__name_report, self.__folder_report, info)
+        """procesa un DataFrame convirtiendolo en una lista de string para ser grabada en un archivo
 
+        Args:
+            data (pd.core.frame.DataFrame): DataFrame
+            title (_type_): titulo de la cabecera
 
-    def event_analysis(self, df):
+        Returns:
+            Dict: Retorna diccionario con mensaje del resultado de la operacion, tipo de resultado
+            (successful,warning) un state (True o False) si la operacion finalizo con exito o algo fallo respectivamente
+        """
+        try:
+
+            info: List[str] = []
+
+            if isinstance(data, pd.core.frame.DataFrame):
+                info = [str(row) for row in data.to_string(index=False).split('\n')]
+            else:
+                info.append(str(data))
+
+            # Agrego un titulo al conjunto de datos
+            file.Save(self.__name_report, self.__folder_report, [title])
+
+            # Agrego el conjunto de datos
+            file.Save(self.__name_report, self.__folder_report, info)
+
+            return message.build_message(id_mesage=0)
+        except Exception as e:
+            return message.build_message(0, str(e.args[1]))
+
+    def event_analysis(self, df: pd.core.frame.DataFrame) -> pd.core.frame.DataFrame:
+
+        """
+        Realizar un análisis de la cantidad de eventos por estado para cada misión y dispositivo
+
+        Args:
+            df (pd.core.frame.DataFrame): DataFrame con el universo de datos consolidado
+
+        Returns:
+            filter (pd.core.frame.DataFrame): DataFrame con el resultado de la consulta
+        """
+
         filter = (df.groupby(['mission', 'device_type', 'device_status'])
                   .size()
                   .rename('number_events')
@@ -133,11 +148,20 @@ class Report:
                                ascending=[True, True, True, False]))
         return filter
 
-    def disconnection_management(self, df):
+    def disconnection_management(self, df: pd.core.frame.DataFrame) -> pd.core.frame.DataFrame:
+        """
+         Identificar los dispositivos que presentan un mayor número
+         de desconexiones, específicamente en el estado "unknown", para cada misión.
+
+        Args:
+            df (pd.core.frame.DataFrame): DataFrame con el universo de datos consolidado
+
+        Returns:
+            number_disconnections (pd.core.frame.DataFrame): DataFrame con el resultado de la consulta
+        """
 
         unknown_devices = df[df['device_status'] == 'unknown']
 
-        # Encontrar los dispositivos con el mayor número de desconexiones para cada misión
         number_disconnections = (unknown_devices.groupby(['mission', 'device_type'])
                                  .size()
                                  .rename('number_disconnections')
@@ -147,10 +171,28 @@ class Report:
 
         return number_disconnections
 
-    def killed_devices(self, df):
+    def killed_devices(self, df: pd.core.frame.DataFrame) -> int:
+        """Realiza la consulta para determinar cuántos dispositivos son inoperables
+
+        Args:
+            df (pd.core.frame.DataFrame): DataFrame con el universo de datos consolidado
+
+        Returns:
+            int: cantidad de dispositivos inoperables
+        """
         return len(df[df['device_status'] == 'killed'])
 
-    def calculate_percentage(self, df):
+    def calculate_percentage(self, df: pd.core.frame.DataFrame) -> pd.core.frame.DataFrame:
+        """
+        Calcular los porcentajes de datos generados para cada
+        dispositivo y misión con respecto a la cantidad total de datos
+
+        Args:
+            df (pd.core.frame.DataFrame): DataFrame con el universo de datos consolidado
+
+        Returns:
+            filter (pd.core.frame.DataFrame): DataFrame con el resultado de la consulta
+        """
 
         filter = (df.groupby(['mission', 'device_type'])
                   .size()
@@ -163,58 +205,38 @@ class Report:
 
         return filter
 
-    def save_graphic(self, df, chart_type, title):
+    def generate_dashboard(self, df: pd.core.frame.DataFrame) -> dict:
+        """Se encarga de controlar el flujo de la generación de reportes y manejo de archivos
 
-        match chart_type:
-            case 1:
+        Args:
+            df (pd.core.frame.DataFrame): DataFrame con el universo de datos consolidado
 
-                graphic = sns.catplot(x='device_status', y='number_events', hue='device_type',
-                                      col='mission', data=df, kind='bar', height=2, aspect=1.5,
-                                      palette='viridis', col_wrap=2)
-                graphic.set_axis_labels('Estados', 'Número de Eventos')
-                graphic.set_titles('Misión: {col_name}')
-                graphic.add_legend(title='Dispositivo', bbox_to_anchor=(1, 0.5), loc='right')
-                graphic.fig.suptitle(title, y=1)
+        Returns:
+            Dict: Retorna diccionario con mensaje del resultado de la operacion, tipo de resultado
+            (successful,warning) un state (True o False) si la operacion finalizo con exito o algo fallo respectivamente
+        """
 
-                graphic.fig.savefig(os.path.join(self.__folder_report, "graphic1.png"))
-                plt.close()
+        try:
 
-            case 2:
-                pass
+            # Análisis de eventos
+            e_a = self.event_analysis(df)
+            title = "Candidad de eventos por estado para cada mision y dispositivo"
+            # self.save_graphic(e_a, 1, title)
+            self.save_in_dashboard(e_a, title)
 
-    def generate_dashboard(self, df):
-        # Análisis de eventos
-        e_a = self.event_analysis(df)
-        title = "Candidad de eventos por estado para cada mision y dispositivo"
-        self.save_graphic(e_a, 1, title)
-        self.save_in_dashboard(e_a, title)
+            # Gestión de desconexiones
+            d_m = self.disconnection_management(df)
+            title = "Dispositivos con número de desconexiones (unknown) por misión"
+            self.save_in_dashboard(d_m, title)
 
-        # Gestión de desconexiones
-        d_m = self.disconnection_management(df)
-        title = "Dispositivos con número de desconexiones (unknown) por misión"
+            # Consolidación de misiones
+            k_d = self.killed_devices(df)
+            self.save_in_dashboard(k_d, "Cantidad de dispositivos inoperables")
 
-        self.save_in_dashboard(d_m, title)
+            # Cálculo de porcentajes
+            c_p = self.calculate_percentage(df)
+            self.save_in_dashboard(c_p, "Porcentaje de datos generados por dispositivos y mision")
 
-        # Consolidación de misiones
-        k_d = self.killed_devices(df)
-        self.save_in_dashboard(k_d, "Cantidad de dispositivos inoperables")
-
-        # Cálculo de porcentajes
-        c_p = self.calculate_percentage(df)
-        self.save_in_dashboard(c_p, "Porcentaje de datos generados por dispositivos y mision")
-
-    def start_process(self):
-        consolidate_events = process.consolidate_files()
-
-        # Creo un archivo con los datos consolidados
-        file.Save(self.__name_consolidated, self.__folder_report, consolidate_events)
-
-        # Creo un DataFrame con los datos concolidados
-        df = pd.DataFrame(consolidate_events, columns=['date', 'mission', 'device_type', 'device_status', 'hash'])
-
-        # Genero los diferentes tipos de reportes
-        process.generate_dashboard(df)
-
-
-process = Report()
-process.start_process()
+            return message.build_message(id_mesage=0)
+        except Exception as e:
+            return message.build_message(0, str(e.args[1]))

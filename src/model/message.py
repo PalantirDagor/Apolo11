@@ -5,7 +5,8 @@ class EMessage:
    message: str 
    part1: str 
    part2: str
-   part3: str 
+   part3: str
+   obj: None 
 
    def __init__(self,number,message):
       self.number = number
