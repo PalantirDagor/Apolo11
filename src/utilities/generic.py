@@ -1,24 +1,24 @@
-import hashlib 
+import hashlib
+import logging
+from loggin.logger_apolo11 import get_logger
 from random import (randrange, choice)
+from typing import List, Tuple
 
+logger = get_logger('Utils', logger_level = logging.ERROR, log_location='logs')
 # Ajustar los metodos a metodos de clase
 class Utils:
 
     # genera el aleatorio de las listas de misiones, estados etc..
     @classmethod
-    def generate_random2(cls, list_elements: list) -> str:
-        """
-        generate_random, Entrega de manera aleatoria un elemento del tipo cadena de texto        
-        
+    def generate_random2(cls, list_elements: List[str]) -> str:
+        """generate_random, Entrega de manera aleatoria un elemento del tipo cadena de texto
+
         Args:
-            list_elements (list[str]): lista con los elementos que será enviado 1 de ellos de manera aleatoria
+            list_elements (List[str]): lista con los elementos que será enviado 1 de ellos de manera aleatoria
 
         Returns:
-            String: Retorna un elemento en cadena de texto
-            
-        Note:
-            -Puede servir para entregar aleatoriamente cualquier dato dentro de esta lista de elementos de cadena de texto
-        """
+            str: Retorna un elemento en cadena de texto
+        """        
 
         try:
             index: int  = randrange(start= len(list_elements))
@@ -28,26 +28,21 @@ class Utils:
 
         except Exception as e:
 
-            #logger.error("Utils.generate_random", e)
+            logger.error('generate_random2', e)
 
             return
 
     @classmethod
     def generate_random(cls, initial_value: int, final_value: int) -> int:
-        """
-        generate_random, Entrega de manera aleatoria un elemento del tipo numérico entero entre dos valores       
-        
+        """generate_random, Entrega de manera aleatoria un elemento del tipo numérico entero entre dos valores
+
         Args:
             initial_value (int): número inicial que indica el comienzo de la búsqueda del número aleatorio
-
             final_value (int): número final hasta donde se dará la búsqueda del número aleatorio
 
         Returns:
             int: Retorna un número entero
-
-        Note:
-            -Puede servir para entregar aleatoriamente cualquier número dentro del rango enviado a la función
-        """
+        """        
 
         try:
             number_random: int = randrange(initial_value, final_value, 1)
@@ -56,24 +51,17 @@ class Utils:
 
         except Exception as e:
 
-            #logger.error("Utils.generate_random", e)
+            logger.error("generate_random", e)
 
             return
     
     @classmethod
-    def generate_hash(cls, *datos) -> str:
-        """        
-        generate_random, Entrega de manera aleatoria un elemento del tipo numérico entero entre dos valores       
-        
-        Args:
-            *datos (tuple): tupla con todos los parametros que se envian a la funcion
+    def generate_hash(cls, *datos: Tuple) -> str:
+        """generate_random, Entrega de manera aleatoria un elemento del tipo numérico entero entre dos valores
 
         Returns:
-            str: Retorna un hash encriptado en sha256
-
-        Note:
-            -Puede servir para entregar un hash con buena encriptacion
-        """
+            str: Retorna un hash encriptado del tipo cadena de texto
+        """        
         
         return str(hash(datos))
     
