@@ -20,10 +20,7 @@ class Utils:
         """        
 
         try:
-            index: int  = randrange(start= len(list_elements))
-            element: str = list_elements[index]
-
-            return element
+            return choice(list_elements)
 
         except Exception as e:
 
