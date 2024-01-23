@@ -21,12 +21,13 @@ desafiante.
 ## Tabla de contenido
 
 - [Estructura del proyecto](#estructura-del-proyecto)
+- [Ejecución del proyecto](#ejecución-del-proyecto)
 - [Desarrolladores](#desarrolladores)
 - [Licencia](#licencia)
 
 ## Estructura del proyecto
 
-El material del poryecto estará disponible en las siguientes carpetas: 
+El material del proyecto estará disponible en las siguientes carpetas: 
 
 
 ```linux
@@ -59,12 +60,36 @@ El material del poryecto estará disponible en las siguientes carpetas:
 │        ├── control_messages.py
 │        ├── files.py
 │        └── generic.py
-└── tests                  # Carpeta con lla logica para realizar puebas automatizadas al proyecto.
+└── tests                  # Carpeta con la logica para realizar pruebas automatizadas al proyecto.
     ├── __init__.py
     ├── inicilizar.py
     └── test_e.py          
 ```
 
+
+## Ejecución del proyecto
+
+Para ejecutar el proyecto se requiere ubicar la carpeta con los script en el directorio de su preferencia, se debe de iniciar una consola de comandos del sistema operativo huesped, dentro de la carpeta "apolo11" y utilizar el siguiente comando para correr los script de simulacion y reporte
+
+### Comando de Simulacion:
+
+En la consola de comando se ingresará:
+```
+python app.py -start simulation
+```
+
+Este comando da inicio a la ejecución de la simulacion de datos, que por defecto correra por 20 segundos, este funcionamiento por defecto podra ser nodificado a gusto por quien lo inicie segun su necesidad tanto aumentando la cantidad de tiempo o disminuyendolo con el siguiente comando:
+```
+python app.py -start simulation -sc 15
+```
+
+### Comando Generacion de Reporte:
+
+Para la generacion del reporte, este es el comando
+```
+python app.py -start report -nr nombre_reporte
+```
+Donde "-nr" indica a la aplicación el nombre que tendra el archivo con los datos generados en la evalucación y reporte del proceso surtido en la simulación.
 
 
 ## Desarrolladores 
