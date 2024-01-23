@@ -1,4 +1,3 @@
-import hashlib
 import logging
 from loggin.logger_apolo11 import get_logger
 from random import (randrange, choice)
