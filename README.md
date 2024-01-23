@@ -89,7 +89,7 @@ Para la generacion del reporte, este es el comando
 ```
 python app.py -start report -nr nombre_reporte
 ```
-Donde "-nr" indica a la aplicación el nombre que tendra el archivo con los datos generados en la evalucación y reporte del proceso surtido en la simulación.
+Donde "-nr" indica a la aplicación el nombre que tendra el archivo con los datos generados en la evaluación y reporte del proceso surtido en la simulación.
 
 
 ## Desarrolladores 
