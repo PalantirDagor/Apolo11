@@ -1,10 +1,12 @@
 import logging
-from loggin.logger_apolo11 import get_logger
+from src.utilities.loggin.logger_apolo11 import get_logger
 from random import (randrange, choice)
 from typing import List, Tuple
 
-logger = get_logger('Utils', logger_level = logging.ERROR, log_location='logs')
+logger = get_logger('Utils', logger_level=logging.ERROR, log_location='logs')
 # Ajustar los metodos a metodos de clase
+
+
 class Utils:
 
     # genera el aleatorio de las listas de misiones, estados etc..
@@ -17,7 +19,7 @@ class Utils:
 
         Returns:
             str: Retorna un elemento en cadena de texto
-        """        
+        """
 
         try:
             return choice(list_elements)
@@ -38,7 +40,7 @@ class Utils:
 
         Returns:
             int: Retorna un número entero
-        """        
+        """
 
         try:
             number_random: int = randrange(initial_value, final_value, 1)
@@ -50,14 +52,13 @@ class Utils:
             logger.error("generate_random", e)
 
             return
-    
+
     @classmethod
     def generate_hash(cls, *datos: Tuple) -> str:
         """generate_random, Entrega de manera aleatoria un elemento del tipo numérico entero entre dos valores
 
         Returns:
             str: Retorna un hash encriptado del tipo cadena de texto
-        """        
-        
+        """
+
         return str(hash(datos))
-    
