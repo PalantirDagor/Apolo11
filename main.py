@@ -52,7 +52,7 @@ def main():
             call_report(args.nr)
             logging.info("Reporte generado exitosamente")
 
-def call_simulator(count: int = 1, level_logging: int = 40):
+def call_simulator(count: int = 1, level_logging: int = 20):
     simulator = apl11(count, level_logging)
     simulator.start_simulator()
 

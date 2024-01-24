@@ -1,6 +1,6 @@
 import hashlib
 import logging
-from loggin.logger_apolo11 import get_logger
+from src.utilities.loggin.logger_apolo11 import get_logger
 from random import (randrange, choice)
 from typing import List, Tuple
 
