@@ -16,7 +16,7 @@ class Simulator_Apolo11:
 
     def __init__(self, execution_number: int = 1, logging_level: int = 20):
         """
-        Consutructor de la clase.
+        Constructor de la clase.
         Cargan los atributos de instancia.
         conf_file_path: Ruta de archivo de configuracion
         detination_path: Ruta de destino
@@ -32,9 +32,9 @@ class Simulator_Apolo11:
 
         self.__execution_number: int = execution_number
 
-        self.__conf_file_path: str = os.path.join("setting", "configuration_file.yaml")
-        self.__detination_path: str = os.path.join("Files", "Devices")
-        self.__configuration_file: dict = yaml.load(file.read_file(self.__conf_file_path).get("object"),
+        self.__conf_file_path: str = os.path.join("settings", "configuration_file.yaml")
+        self.__detination_path: str = os.path.join("files", "devices")
+        self.__configuration_file: dict = yaml.load(file.read_file(self.__conf_file_path).object,
                                                     Loader=yaml.FullLoader)
         self.__consecutive_file: dict[str, int] = {}
 
@@ -51,8 +51,8 @@ class Simulator_Apolo11:
         row: dict = {"date": time.strftime('%Y%m%d%H%M%S'), "mission": mission}
 
         if mission != "UNKN":
-            row["device_type"] = util.generate_random2(self.__configuration_file["device_type"])
-            row["device_status"] = util.generate_random2(self.__configuration_file["device_status"])
+            row["device_type"] = util.generate_random(self.__configuration_file["device_type"])
+            row["device_status"] = util.generate_random(self.__configuration_file["device_status"])
             row["hash"] = util.generate_hash(row.get("date"),
                                              row.get("mission"),
                                              row.get("device_type"),
@@ -73,7 +73,7 @@ class Simulator_Apolo11:
             rows (int, optional): Numero de registros ha generar por archivo. Default 1
         """
         l_rows_file: list = []
-        lv_mission: str = util.generate_random2(self.__configuration_file["mission"])
+        lv_mission: str = util.generate_random(self.__configuration_file["mission"])
 
         # print(f"Star create files, mision: {lv_mission}")
         for i in range(0, rows):
@@ -116,7 +116,7 @@ class Simulator_Apolo11:
             bool: True si la simulación fue exitosa, False si genera algun error
         """
         try:
-            ln_files: int = util.generate_random(self.__configuration_file["file_quantity"][0],
+            ln_files: int = util.generate_random_number(self.__configuration_file["file_quantity"][0],
                                                  self.__configuration_file["file_quantity"][1])
 
             logging.debug(f"Inicia la creacion de {ln_files} archivos para le ejecución nro {self.__execution_number}")

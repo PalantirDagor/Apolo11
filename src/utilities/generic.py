@@ -1,7 +1,9 @@
 import logging
-from loggin.logger_apolo11 import get_logger
+from src.utilities.loggin.logger_apolo11 import get_logger
 from random import (randrange, choice)
 from typing import List, Tuple
+from pydantic import BaseModel, Field, validator
+from typing import Dict,Union
 
 logger = get_logger('Utils', logger_level = logging.ERROR, log_location='logs')
 # Ajustar los metodos a metodos de clase
@@ -9,7 +11,7 @@ class Utils:
 
     # genera el aleatorio de las listas de misiones, estados etc..
     @classmethod
-    def generate_random2(cls, list_elements: List[str]) -> str:
+    def generate_random(cls, list_elements: List[str]) -> str:
         """generate_random, Entrega de manera aleatoria un elemento del tipo cadena de texto
 
         Args:
@@ -29,7 +31,7 @@ class Utils:
             return
 
     @classmethod
-    def generate_random(cls, initial_value: int, final_value: int) -> int:
+    def generate_random_number(cls, initial_value: int, final_value: int) -> int:
         """generate_random, Entrega de manera aleatoria un elemento del tipo numérico entero entre dos valores
 
         Args:
@@ -58,6 +60,10 @@ class Utils:
         Returns:
             str: Retorna un hash encriptado del tipo cadena de texto
         """        
-        
+
         return str(hash(datos))
     
+class Util_Return(BaseModel):
+    
+    object: object
+    message: Dict[str,Union[bool, str, str, str]]

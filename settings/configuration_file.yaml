@@ -1,0 +1,20 @@
+device_status:
+              - EXCELLENT
+              - WARNING
+              - FAULTY
+              - KILLED
+              - UNKNOWN
+mission:
+            - ORBONE
+            - CLNM
+            - TMRS
+            - GALXONE
+            - UNKN
+device_type:
+            - NAVE
+            - TRAJE
+            - SATELITE
+            - TRANSBORDADOR
+file_quantity:
+            - 1
+            - 10
