@@ -4,10 +4,11 @@ import sys
 from datetime import datetime
 from logging import handlers
 
+
 def get_logger(
     app_name: str,
-    log_location: str = os.path.join("tmp","logs"),
-    log_format: str ="%Y%m%d%H%M%S",
+    log_location: str = os.path.join("tmp", "logs"),
+    log_format: str = "%Y%m%d%H%M%S",
 
     logger_level: int = logging.DEBUG
 ):
@@ -15,9 +16,12 @@ def get_logger(
 
     Args:
         app_name (str): Nombre de la aplicación o flujo que está corriendo
-        log_location (str, optional): Ruta donde quedaran guardados los los logs. Defaults to os.path.join("tmp","logs").
-        log_format (str, optional): Formato de fecha y hora minutos y segundos. Defaults to "%Y%m%d%H%M%S".
-        logger_level (int, optional): Nivel de captura y muestra de eventos de logs. Defaults to logging.DEBUG.
+        log_location (str, optional): Ruta donde quedaran guardados los los logs.
+        Defaults to os.path.join("tmp","logs").
+        log_format (str, optional): Formato de fecha y hora minutos y segundos.
+        Defaults to "%Y%m%d%H%M%S".
+        logger_level (int, optional): Nivel de captura y muestra de eventos de logs.
+        Defaults to logging.DEBUG.
 
     Returns:
         _type_: _description_
@@ -25,10 +29,9 @@ def get_logger(
 
     log_save = os.path.join(
         log_location,
-        (app_name or "UnknowNameLog") + "_{}.log".format(datetime.now().strftime(log_format))
-    )
+        (app_name or "UnknowNameLog") + "_{}.log".format(datetime.now().strftime(log_format)))
     logger = None
-    
+
     try:
         logger = logging.getLogger(app_name or "UnknowApp")
         logger.setLevel(logger_level)
@@ -41,7 +44,7 @@ def get_logger(
             log_save, maxBytes=(1048576 * 5), backupCount=7)
         fileHandler.setFormatter(format)
         logger.addHandler(fileHandler)
-    except Exception as ex:
+    except Exception:
         logger = None
-        
+
     return logger
