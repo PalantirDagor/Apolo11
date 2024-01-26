@@ -3,7 +3,7 @@ from src.utilities.logging.logger_apolo11 import get_logger
 from random import (randrange, choice)
 from typing import List, Tuple
 
-logger = get_logger('Utils', logger_level=logging.ERROR, log_location='logs')
+logger = get_logger('Utils', logger_level=logging.ERROR)
 # Ajustar los metodos a metodos de clase
 
 class Utils():
