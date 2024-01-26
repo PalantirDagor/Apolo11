@@ -3,13 +3,15 @@ import os
 import sys
 from datetime import datetime
 from logging import handlers
+import yaml
+from typing import List
+
+from src.utilities.files import FileUtils as file
 
 
 def get_logger(
     app_name: str,
     log_location: str = os.path.join("tmp", "logs"),
-    log_format: str = "%Y%m%d%H%M%S",
-
     logger_level: int = logging.DEBUG
 ):
     """Logger personalizado para uso de Apolo11
@@ -26,22 +28,29 @@ def get_logger(
     Returns:
         _type_: _description_
     """
+    constants_path: str = os.path.join(os.path.join("setting", "constants_properties.yaml"))
+    constants_dict: dict = yaml.load(file.read_file(constants_path).get("object"),
+                                     Loader=yaml.FullLoader)
+
+    log_formats: List[str] = constants_dict['date_formats']
+    number_constants: List[int] = constants_dict['number_constants']
+    string_constants: List[str] = constants_dict['string_constants']
 
     log_save = os.path.join(
         log_location,
-        (app_name or "UnknowNameLog") + "_{}.log".format(datetime.now().strftime(log_format)))
+        (app_name or string_constants[1]) + "_{}.log".format(datetime.now().strftime(log_formats[1])))
     logger = None
 
     try:
-        logger = logging.getLogger(app_name or "UnknowApp")
         logger.setLevel(logger_level)
+        logger = logging.getLogger(app_name or string_constants[2])
         format = logging.Formatter(
-            "%(asctime)s - [%(levelname)s] - [%(name)s] : %(message)s", "%d/%m/%Y %H:%M:%S")
+            "%(asctime)s - [%(levelname)s] - [%(name)s] : %(message)s", log_formats[2])
         loginStreamHandler = logging.StreamHandler(sys.stdout)
         loginStreamHandler.setFormatter(format)
         logger.addHandler(loginStreamHandler)
         fileHandler = handlers.RotatingFileHandler(
-            log_save, maxBytes=(1048576 * 5), backupCount=7)
+            log_save, maxBytes=(number_constants[2]), backupCount=number_constants[1])
         fileHandler.setFormatter(format)
         logger.addHandler(fileHandler)
     except Exception:
