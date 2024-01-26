@@ -1,11 +1,11 @@
 import logging
-from src.utilities.loggin.logger_apolo11 import get_logger
+from src.utilities.logging.logger_apolo11 import get_logger
 from random import (randrange, choice)
 from typing import List, Tuple
 from pydantic import BaseModel, Field, validator
 from typing import Dict,Union
 
-logger = get_logger('Utils', logger_level=logging.ERROR, log_location='logs')
+logger = get_logger('Utils', logger_level=logging.ERROR)
 # Ajustar los metodos a metodos de clase
 
 
