@@ -2,7 +2,7 @@ import time
 import threading
 import argparse
 import logging
-from src.Simulator.simulator import Simulator_Apolo11 as apl11
+from src.simulator.simulator import Simulator_Apolo11 as apl11
 from src.dashboard.process import Report as apl11_report
 
 # función definida por el usuario para validar si el valor es un número positivo

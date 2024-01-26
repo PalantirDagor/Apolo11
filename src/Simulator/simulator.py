@@ -33,7 +33,7 @@ class Simulator_Apolo11:
         self.__execution_number: int = execution_number
 
         self.__conf_file_path: str = os.path.join("setting", "configuration_file.yaml")
-        self.__detination_path: str = os.path.join("Files", "Devices")
+        self.__detination_path: str = os.path.join("files", "devices")
         self.__configuration_file: dict = yaml.load(file.read_file(self.__conf_file_path).get("object"),
                                                     Loader=yaml.FullLoader)
         self.__consecutive_file: dict[str, int] = {}
