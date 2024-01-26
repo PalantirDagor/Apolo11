@@ -2,6 +2,7 @@ import time
 import threading
 import argparse
 import logging
+from src.utilities.config import Util_Config
 from src.Simulator.simulator import Simulator_Apolo11 as apl11
 from src.dashboard.process import Report as apl11_report
 
@@ -32,6 +33,7 @@ def main():
     args = parser.parse_args()
     # Nivel de logging
     logging.basicConfig(level=args.lg)
+    config = Util_Config()
 
     if args.start == 'simulation':
         logging.info(f"Proceso de simulación iniciado con un ciclo de {args.sc} segundos, para detener presiona Ctrl + c")
@@ -48,8 +50,9 @@ def main():
         if args.nr is None:
             raise argparse.ArgumentTypeError("Se requiere especificar el nombre del reporte; argumento: -nr")
         else:
+            config.replace_name_report(args.nr)
             logging.info("Generación de reporte iniciado...")
-            if call_report(args.nr, args.lg):
+            if call_report(args.lg):
                 logging.info("Reporte generado exitosamente")
             else:
                 logging.error("Ocurrió un error durante la ejecución de generación del reporte ")
@@ -58,8 +61,8 @@ def call_simulator(count: int = 1 , level_logging: int = 20):
     simulator = apl11(count, level_logging)
     simulator.start_simulator()
 
-def call_report(name_report: str, level_logging: int = 20) -> bool:
-    report = apl11_report(name_report,level_logging)
+def call_report(level_logging: int = 20) -> bool:
+    report = apl11_report(level_logging)
     result = report.start_process().message["state"]
     return result  
 

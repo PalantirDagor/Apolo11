@@ -68,4 +68,4 @@ class Utils:
 class Util_Return(BaseModel):
     
     object: object
-    message: Dict[str,Union[bool, str, str, str]]
+    message: Dict[str, Union[bool, str, str, str]]

@@ -42,7 +42,6 @@ class Message:
         __part1 = part1_mesage
         __part2 = part2_mesage
 
-        # self.lectura(self)
 
         if default_mesage == "":
             __message = Message.__message_list[id_mesage]

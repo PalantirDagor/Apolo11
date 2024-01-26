@@ -1,10 +1,9 @@
 import os
 import json
 import pandas as pd
-import time
-import yaml
 import logging
 from typing import List
+from src.utilities.config import Util_Config as config
 from src.utilities.files import FileUtils as file
 from src.utilities.control_messages import Message as message
 from src.utilities.generic import Util_Return
@@ -12,21 +11,8 @@ from src.utilities.generic import Util_Return
 
 class Report:
 
-    def __init__(self, name_report, logging_level: int):
-
+    def __init__(self, logging_level: int):
         logging.basicConfig(level=logging_level)
-        self.__conf_file_path: str = os.path.join("settings", "configuration_file.yaml")
-        # self.__configuration_file: dict = yaml.load(file.read_file(self.__conf_file_path).object,
-        #                                             Loader=yaml.FullLoader)
-        # self.__date_format = self.__configuration_file["date_format"]
-
-        self.__name_columns: List[str] = ['date', 'mission', 'device_type', 'device_status', 'hash']
-        self.__folder_path: str = os.path.join("files", "devices")
-        self.__date_report = str(time.strftime('%Y%m%d%H%M%S'))
-        self.__folder_backup: str = os.path.join("files", "backups", self.__date_report)
-        self.__folder_report: str = os.path.join("files", "reports", self.__date_report)
-        self.__name_report = f"APLSTATS-{name_report}-{self.__date_report}.log"
-        self.__name_consolidated = f"APLSTATS-Consolidated_Files-{self.__date_report}.log"
 
     def start_process(self) -> Util_Return:
         """Orquestador de la generación de reportes
@@ -71,14 +57,14 @@ class Report:
 
         try:
 
-            if len(os.listdir(self.__folder_path)) == 0:
+            if len(os.listdir(config.DESTINATION_FILE)) == 0:
                 logging.info("No existen archivos simulados para procesar...")
                 raise SystemExit()
 
             records: List[str] = []
 
-            for file_name in os.listdir(self.__folder_path):
-                file_path = os.path.join(self.__folder_path, file_name)
+            for file_name in os.listdir(config.DESTINATION_FILE):
+                file_path = os.path.join(config.DESTINATION_FILE, file_name)
                 lines = file.read_file(file_path).object
 
                 if lines is not None:
@@ -88,10 +74,10 @@ class Report:
                         record = list(data.values())
                         records.append(record)
 
-                file.move_file(self.__folder_path, self.__folder_backup, file_name)
+                file.move_file(config.DESTINATION_FILE, config.FOLDER_BACKUP, file_name)
 
             logging.debug((f"""Se genero la consolidación de {len(list(records))} registros de un total de
-                           {len(os.listdir(self.__folder_path))} archivos"""))
+                           {len(os.listdir(config.DESTINATION_FILE))} archivos"""))
 
             return Util_Return(object=list(records),
                                message=message.build_message(0, "S"))
@@ -105,8 +91,8 @@ class Report:
         Args:
             list (List[str]): Lista con los eventos consolidados
         """
-        file.Save(self.__name_consolidated, self.__folder_report, [self.__name_columns] + list)
-        logging.debug(f"Generación de consolidados {os.path.join(self.__folder_report, self.__name_consolidated)}")
+        file.Save(config.NAME_CONSOLIDATED, config.FOLDER_REPORT, [config.NAME_COLUMNS] + list)
+        logging.debug(f"Generación de consolidados {os.path.join(config.FOLDER_REPORT, config.NAME_CONSOLIDATED)}")
 
     def dataframe_creation(self, list: List[str]) -> pd.core.frame.DataFrame:
         """Creo un DataFrame con los datos consolidados
@@ -119,7 +105,7 @@ class Report:
         """
 
         logging.debug("Se genera un Dataframe de los datos consolidados")
-        return pd.DataFrame(list, columns=self.__name_columns)
+        return pd.DataFrame(list, columns=config.NAME_COLUMNS)
 
     def generate_dashboard(self, df: pd.core.frame.DataFrame) -> dict:
 
@@ -159,7 +145,7 @@ class Report:
             c_p = self.calculate_percentage(df)
             self.save_in_dashboard(c_p, "Porcentaje de datos generados por dispositivos y misión")
 
-            logging.debug(f"Informe generado en la carpera {self.__date_report}")
+            logging.debug(f"Informe generado en la carpera {config.DATE_REPORT}")
             return Util_Return(object=None,
                                message=message.build_message(0, "S"))
         except Exception as e:
@@ -212,12 +198,12 @@ class Report:
                 info = [str(row) for row in data.to_string(index=False).split('\n')]
             else:
                 info.append(str(data))
-
+            
             # Agrego un titulo al conjunto de datos
-            file.Save(self.__name_report, self.__folder_report, [title])
+            file.Save(config.NAME_REPORT, config.FOLDER_REPORT, [title])
 
             # Agrego el conjunto de datos
-            file.Save(self.__name_report, self.__folder_report, info)
+            file.Save(config.NAME_REPORT, config.FOLDER_REPORT, info)
 
             return Util_Return(object=None,
                                message=message.build_message(0, "S"))
