@@ -5,10 +5,17 @@ import logging
 import sys
 import json
 
+from pydantic import BaseModel
 from src.utilities.files import FileUtils as file
 from src.utilities.generic import Utils as util
 
-
+class Row_file(BaseModel):
+    date: str = ""
+    mission: str = ""
+    device_type: str = ""
+    device_status: str = ""
+    hash: str = ""
+    
 class Simulator_Apolo11:
     """
     Simulator_Apolo11: Clase encargada de generar la simulación
@@ -49,6 +56,13 @@ class Simulator_Apolo11:
             dict[str,str]: Diccionario con el registro de la mision
         """
         row: dict = {"date": time.strftime('%Y%m%d%H%M%S'), "mission": mission}
+
+        myrow = Row_file(date = "hola", 
+                         mission = mission, 
+                         device_type = util.generate_random2(self.__configuration_file["device_type"]),
+                         device_status = util.generate_random2(self.__configuration_file["device_status"]),
+                         hash="123")
+        print(myrow.__dict__)
 
         if mission != "UNKN":
             row["device_type"] = util.generate_random2(self.__configuration_file["device_type"])
@@ -117,7 +131,7 @@ class Simulator_Apolo11:
         """
         try:
             ln_files: int = util.generate_random(self.__configuration_file["file_quantity"][0],
-                                                 self.__configuration_file["file_quantity"][1])
+                                                  self.__configuration_file["file_quantity"][1])
 
             logging.debug(f"Inicia la creacion de {ln_files} archivos para le ejecución nro {self.__execution_number}")
 

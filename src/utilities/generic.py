@@ -1,13 +1,12 @@
 import logging
-from src.utilities.loggin.logger_apolo11 import get_logger
+from src.utilities.logging.logger_apolo11 import get_logger
 from random import (randrange, choice)
 from typing import List, Tuple
 
 logger = get_logger('Utils', logger_level=logging.ERROR, log_location='logs')
 # Ajustar los metodos a metodos de clase
 
-
-class Utils:
+class Utils():
 
     # genera el aleatorio de las listas de misiones, estados etc..
     @classmethod
