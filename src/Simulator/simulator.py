@@ -37,6 +37,8 @@ class Simulator_Apolo11:
         self.__configuration_file: dict = yaml.load(file.read_file(self.__conf_file_path).object,
                                                     Loader=yaml.FullLoader)
         self.__consecutive_file: dict[str, int] = {}
+        self.__date_format = self.__configuration_file["date_format"]
+        self._number_digits = int(self.__configuration_file["number_digits"])
 
     def generate_data(self, mission: str) -> dict:
         """
@@ -48,7 +50,7 @@ class Simulator_Apolo11:
         Returns:
             dict[str,str]: Diccionario con el registro de la mision
         """
-        row: dict = {"date": time.strftime('%Y%m%d%H%M%S'), "mission": mission}
+        row: dict = {"date": time.strftime(self.__date_format), "mission": mission}
 
         if mission != "UNKN":
             row["device_type"] = util.generate_random(self.__configuration_file["device_type"])
@@ -107,7 +109,7 @@ class Simulator_Apolo11:
         else:
             self.__consecutive_file[mission] = self.__consecutive_file.get(mission) + 1
 
-        return f"APL{mission}-{self.__execution_number:0>4}-{self.__consecutive_file.get(mission):0>4}.log"
+        return f"APL{mission}-{self.__execution_number:0>{self._number_digits}}-{self.__consecutive_file.get(mission):0>{self._number_digits}}.log"
 
     def start_simulator(self) -> bool:
         """Inicia el proceso de simulación

@@ -2,6 +2,7 @@ import os
 import json
 import pandas as pd
 import time
+import yaml
 import logging
 from typing import List
 from src.utilities.files import FileUtils as file
@@ -14,6 +15,10 @@ class Report:
     def __init__(self, name_report, logging_level: int):
 
         logging.basicConfig(level=logging_level)
+        self.__conf_file_path: str = os.path.join("settings", "configuration_file.yaml")
+        # self.__configuration_file: dict = yaml.load(file.read_file(self.__conf_file_path).object,
+        #                                             Loader=yaml.FullLoader)
+        # self.__date_format = self.__configuration_file["date_format"]
 
         self.__name_columns: List[str] = ['date', 'mission', 'device_type', 'device_status', 'hash']
         self.__folder_path: str = os.path.join("files", "devices")
