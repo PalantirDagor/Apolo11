@@ -6,8 +6,8 @@ from src.utilities.generic import Util_Return
 
 class FileUtils():
 
-    @classmethod
-    def Save(cls, name: str, path: str, data: list[str]) -> Util_Return:
+    @staticmethod
+    def Save(name: str, path: str, data: list[str]) -> Util_Return:
         """
         Save, Guarda en un archivo la información  entregada
 
@@ -42,8 +42,8 @@ class FileUtils():
                                                                           str(e.filename),
                                                                           str(e.filename2)))
 
-    @classmethod
-    def read_file(cls, path_file: str) -> Util_Return:
+    @staticmethod
+    def read_file(path_file: str) -> Util_Return:
         """
         read_file, lee la información  contenida en el archivo especificado y lo retorna como un string
 
@@ -62,9 +62,8 @@ class FileUtils():
         except Exception as e:
             return Util_Return(object=None, message=message.build_message(0, "E", str(e.args[1])))
 
-    @classmethod
-    def move_file(cls,
-                  origin_path: str,
+    @staticmethod
+    def move_file(origin_path: str,
                   destination_path: str,
                   filename: str = None) -> Util_Return:
         """

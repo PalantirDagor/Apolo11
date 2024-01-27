@@ -44,26 +44,23 @@ El material del proyecto estará disponible en las siguientes carpetas:
 │   ├── configuration_file.yaml
 │   └── message.yaml
 ├── src                    # Carpeta contenedora de las carpetas que estructuran el proyecto.
-│    ├── Simulator         # Carpeta con la logica para iniciar el proyecto.
+│    ├── simulator         # Carpeta con la logica para iniciar el proyecto.
 │    │   ├── __init__.py
 │    │   └── simulator.py
 │    ├── dashboard         # Carpeta con la logica con los resultados de la ejecución.
 │    │   ├── __init__.py
 │    │   └── process.py
-│    ├── model             # Carpeta con la logica del modelo de generación de logica del negocio.
-│    │   ├── __init__.py
-│    │   ├── file.py
-│    │   ├── message.py
-│    │   └── report.py
 │    └── utilities         # Carpeta con los utilitarios que sirven de manera global al poryecto.
 │        ├── __init__.py
+|        ├── config.py  
 │        ├── control_messages.py
 │        ├── files.py
 │        └── generic.py
 └── tests                  # Carpeta con la logica para realizar pruebas automatizadas al proyecto.
     ├── __init__.py
-    ├── inicilizar.py
-    └── test_e.py          
+    ├── dashboard.py
+    └── simulator.py 
+    └── utilities.py          
 ```
 
 

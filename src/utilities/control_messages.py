@@ -38,23 +38,22 @@ class Message:
           - "message_build" : Mensaje principal + Complemento 1 + Complemento 2
        """
 
-        __message = default_mesage
-        __part1 = part1_mesage
-        __part2 = part2_mesage
-
+        cls.__message = default_mesage
+        cls.__part1 = part1_mesage
+        cls.__part2 = part2_mesage
 
         if default_mesage == "":
-            __message = Message.__message_list[id_mesage]
+            cls.__message = Message.__message_list[id_mesage]
 
         if type.upper() == 'S' or type.upper() == 'W' or type.upper() == 'I':
-            __state = True
+            cls.__state = True
         else:
-            __state = False
+            cls.__state = False
 
-        __message_build = (f"{__message} {__part1} {__part2}").strip()
+        cls.__message_build = (f"{cls.__message} {cls.__part1} {cls.__part2}").strip()
 
-        return {"state": __state,
-                "message": __message,
-                "message_build": __message_build,
-                "part1": __part1,
-                "part2": __part2}
+        return {"state": cls.__state,
+                "message": cls.__message,
+                "message_build": cls.__message_build,
+                "part1": cls.__part1,
+                "part2": cls.__part2}

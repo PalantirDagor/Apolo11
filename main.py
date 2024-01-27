@@ -59,11 +59,11 @@ def main():
 
 def call_simulator(count: int = 1 , level_logging: int = 20):
     simulator = apl11(count, level_logging)
-    simulator.start_simulator()
+    simulator._start_simulator()
 
 def call_report(level_logging: int = 20) -> bool:
     report = apl11_report(level_logging)
-    result = report.start_process().message["state"]
+    result = report._start_process().message["state"]
     return result  
 
 if __name__ == '__main__':
