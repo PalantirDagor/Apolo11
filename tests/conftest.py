@@ -13,7 +13,7 @@ def app(request):
         pass
 
     app = App()
-    config = Util_Config()
+    Util_Config()
     app.files = FileUtils
     app.util = Util
     app.report = Report(20)

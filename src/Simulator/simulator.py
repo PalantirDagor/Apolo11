@@ -1,5 +1,3 @@
-import yaml
-import os
 import time
 import logging
 import sys
@@ -19,7 +17,7 @@ class Simulator_Apolo11:
         """
         Constructor de la clase.
         Cargan los atributos de instancia.
-        
+
         configuration_file: Archivo de configuracion
         consecutive_file: Consecutivo del archivo
 
@@ -33,10 +31,9 @@ class Simulator_Apolo11:
         self.__execution_number: int = execution_number
         self.__consecutive_file: dict[str, int] = {}
 
-
-    def generate_data(self, mission: str) -> dict:
+    def __generate_data(self, mission: str) -> dict:
         """
-        Genera los datos simulados de cada la misión
+        Método privado que genera los datos simulados de cada la misión
 
         Args:
             mission (str): Mision a la que se debe generar los datos
@@ -61,9 +58,9 @@ class Simulator_Apolo11:
         logging.debug("Se han generado los datos del archivo")
         return row
 
-    def create_file(self, rows: int = 1) -> None:
+    def __create_file(self, rows: int = 1) -> None:
         """
-        Crea el archivo de la mision
+        Método privado que crea el archivo de la mision
 
         Args:
             rows (int, optional): Numero de registros ha generar por archivo. Default 1
@@ -73,24 +70,15 @@ class Simulator_Apolo11:
 
         # print(f"Star create files, mision: {lv_mission}")
         for i in range(0, rows):
-            l_rows_file.append(self.generate_data(lv_mission))
-
-        # # Pasamos el diccionario a string
-        # # Head file
-        # l_file: list = []
-        # l_file.append(','.join(l_rows_file[0].keys()))
-
-        # # Body file
-        # for row in l_rows_file:
-        #     l_file.append(','.join(row.values()))
+            l_rows_file.append(self.__generate_data(lv_mission))
 
         # Save file
-        file.Save(self.filename(lv_mission), config.DESTINATION_FILE, l_rows_file)
+        file.Save(self.__filename(lv_mission), config.DESTINATION_FILE, l_rows_file)
         logging.debug(f"Se creo archivo de la mision {lv_mission} en la ruta {config.DESTINATION_FILE}")
 
-    def filename(self, mission: str) -> str:
+    def __filename(self, mission: str) -> str:
         """
-        Genera el nombre del archivo
+        Método privado que genera el nombre del archivo
 
         Args:
             mission (str): Mision a la que se va a generar el nombre
@@ -103,9 +91,10 @@ class Simulator_Apolo11:
         else:
             self.__consecutive_file[mission] = self.__consecutive_file.get(mission) + 1
 
-        return f"APL{mission}-{self.__execution_number:0>{config._instance.number_digits}}-{self.__consecutive_file.get(mission):0>{config._instance.number_digits}}.log"
+        return f"""APL{mission}-{self.__execution_number:0>{config._instance.number_digits}}-
+                    {self.__consecutive_file.get(mission):0>{config._instance.number_digits}}.log"""
 
-    def start_simulator(self) -> bool:
+    def _start_simulator(self) -> bool:
         """Inicia el proceso de simulación
 
         Returns:
@@ -118,7 +107,7 @@ class Simulator_Apolo11:
             logging.debug(f"Inicia la creacion de {ln_files} archivos para le ejecución nro {self.__execution_number}")
 
             for i in range(0, ln_files):
-                self.create_file()
+                self.__create_file()
 
             logging.info(f"Se han generado {ln_files} archivos en la ejecución nro {self.__execution_number}")
             return True

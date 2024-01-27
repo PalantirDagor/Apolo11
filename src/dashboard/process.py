@@ -14,7 +14,7 @@ class Report:
     def __init__(self, logging_level: int):
         logging.basicConfig(level=logging_level)
 
-    def start_process(self) -> Util_Return:
+    def _start_process(self) -> Util_Return:
         """Orquestador de la generación de reportes
 
         Returns:
@@ -25,16 +25,16 @@ class Report:
         """
         try:
             # 1. Consolido los datos
-            consolidate_events = self.consolidate_files().object
+            consolidate_events = self.__consolidate_files().object
 
             # 2. Creo un archivo con los datos consolidados
-            self.save_consolidated(consolidate_events)
+            self.__save_consolidated(consolidate_events)
 
             # 3. Creo un DataFrame con los datos concolidados
-            df = self.dataframe_creation(consolidate_events)
+            df = self.__dataframe_creation(consolidate_events)
 
             # 4. Genero los diferentes tipos de reportes
-            self.generate_dashboard(df)
+            self.__generate_dashboard(df)
 
             return Util_Return(object=None,
                                message=message.build_message(0, "S"))
@@ -42,9 +42,9 @@ class Report:
             return Util_Return(object=None,
                                message=message.build_message(0, "E", str(e.args[1])))
 
-    def consolidate_files(self) -> Util_Return:
+    def __consolidate_files(self) -> Util_Return:
 
-        """Consolidad en una única lista los datos de los archivos reportados por las misiones
+        """Método privado que consolidad en una única lista los datos de los archivos reportados por las misiones
 
         Returns:
             list[str]: Retorna los eventos como una lista de string
@@ -85,8 +85,8 @@ class Report:
             return Util_Return(object=None,
                                message=message.build_message(0, "E", str(e.args[1])))
 
-    def save_consolidated(self, list: List[str]):
-        """Crea un archivo con los datos consolidados
+    def __save_consolidated(self, list: List[str]):
+        """Método privado que crea un archivo con los datos consolidados
 
         Args:
             list (List[str]): Lista con los eventos consolidados
@@ -94,8 +94,8 @@ class Report:
         file.Save(config.NAME_CONSOLIDATED, config.FOLDER_REPORT, [config.NAME_COLUMNS] + list)
         logging.debug(f"Generación de consolidados {os.path.join(config.FOLDER_REPORT, config.NAME_CONSOLIDATED)}")
 
-    def dataframe_creation(self, list: List[str]) -> pd.core.frame.DataFrame:
-        """Creo un DataFrame con los datos consolidados
+    def __dataframe_creation(self, list: List[str]) -> pd.core.frame.DataFrame:
+        """Método privado que que crea un DataFrame con los datos consolidados
 
         Args:
             list (List[str]): Lista con los eventos consolidados
@@ -107,9 +107,9 @@ class Report:
         logging.debug("Se genera un Dataframe de los datos consolidados")
         return pd.DataFrame(list, columns=config.NAME_COLUMNS)
 
-    def generate_dashboard(self, df: pd.core.frame.DataFrame) -> dict:
+    def __generate_dashboard(self, df: pd.core.frame.DataFrame) -> dict:
 
-        """Se encarga de controlar el flujo de la generación de reportes y manejo de archivos
+        """Método privado que que se encarga de controlar el flujo de la generación de reportes y manejo de archivos
 
         Args:
             df (pd.core.frame.DataFrame): DataFrame con el universo de datos consolidado
@@ -124,26 +124,26 @@ class Report:
 
             # Análisis de eventos
             logging.debug("Generando análisis de eventos...")
-            e_a = self.event_analysis(df)
+            e_a = self.__event_analysis(df)
             title = "Cantidad  de eventos por estado para cada misión y dispositivo"
             # self.save_graphic(e_a, 1, title)
-            self.save_in_dashboard(e_a, title)
+            self.__save_in_dashboard(e_a, title)
 
             # Gestión de desconexiones
             logging.debug("Validando gestión de desconexiones...")
-            d_m = self.disconnection_management(df)
+            d_m = self.__disconnection_management(df)
             title = "Dispositivos con número de desconexiones (unknown) por misión"
-            self.save_in_dashboard(d_m, title)
+            self.__save_in_dashboard(d_m, title)
 
             # Consolidación de misiones
             logging.debug("Validando dispositivos inoperables...")
-            k_d = self.killed_devices(df)
-            self.save_in_dashboard(k_d, "Cantidad de dispositivos inoperables")
+            k_d = self.__killed_devices(df)
+            self.__save_in_dashboard(k_d, "Cantidad de dispositivos inoperables")
 
             # Cálculo de porcentajes
             logging.debug("Validando porcentaje de datos generados por dispositivos y misión")
-            c_p = self.calculate_percentage(df)
-            self.save_in_dashboard(c_p, "Porcentaje de datos generados por dispositivos y misión")
+            c_p = self.__calculate_percentage(df)
+            self.__save_in_dashboard(c_p, "Porcentaje de datos generados por dispositivos y misión")
 
             logging.debug(f"Informe generado en la carpera {config.DATE_REPORT}")
             return Util_Return(object=None,
@@ -174,11 +174,11 @@ class Report:
         return decorador
 
     @add_header()
-    def save_in_dashboard(self,
-                          data: pd.core.frame.DataFrame,
-                          title: str) -> dict:
+    def __save_in_dashboard(self,
+                            data: pd.core.frame.DataFrame,
+                            title: str) -> dict:
 
-        """Procesa un DataFrame convirtiéndolo  en una lista de string para ser grabada en un archivo
+        """Método privado que procesa un DataFrame convirtiéndolo  en una lista de string para ser grabada en un archivo
 
         Args:
             data (pd.core.frame.DataFrame): DataFrame
@@ -198,7 +198,7 @@ class Report:
                 info = [str(row) for row in data.to_string(index=False).split('\n')]
             else:
                 info.append(str(data))
-            
+
             # Agrego un titulo al conjunto de datos
             file.Save(config.NAME_REPORT, config.FOLDER_REPORT, [title])
 
@@ -211,7 +211,7 @@ class Report:
             return Util_Return(object=None,
                                message=message.build_message(0, "E", str(e.args[1])))
 
-    def event_analysis(self, df: pd.core.frame.DataFrame) -> pd.core.frame.DataFrame:
+    def __event_analysis(self, df: pd.core.frame.DataFrame) -> pd.core.frame.DataFrame:
 
         """
         Realizar un análisis de la cantidad de eventos por estado para cada misión y dispositivo
@@ -231,7 +231,7 @@ class Report:
                                ascending=[True, True, True, False]))
         return filter
 
-    def disconnection_management(self, df: pd.core.frame.DataFrame) -> pd.core.frame.DataFrame:
+    def __disconnection_management(self, df: pd.core.frame.DataFrame) -> pd.core.frame.DataFrame:
         """
          Identificar los dispositivos que presentan un mayor número
          de desconexiones, específicamente en el estado "unknown", para cada misión.
@@ -254,7 +254,7 @@ class Report:
 
         return number_disconnections
 
-    def killed_devices(self, df: pd.core.frame.DataFrame) -> int:
+    def __killed_devices(self, df: pd.core.frame.DataFrame) -> int:
         """Realiza la consulta para determinar cuántos dispositivos son inoperables
 
         Args:
@@ -265,7 +265,7 @@ class Report:
         """
         return len(df[df['device_status'] == 'killed'])
 
-    def calculate_percentage(self, df: pd.core.frame.DataFrame) -> pd.core.frame.DataFrame:
+    def __calculate_percentage(self, df: pd.core.frame.DataFrame) -> pd.core.frame.DataFrame:
         """
         Calcular los porcentajes de datos generados para cada
         dispositivo y misión con respecto a la cantidad total de datos
