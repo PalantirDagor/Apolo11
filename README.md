@@ -21,6 +21,7 @@ desafiante.
 ## Tabla de contenido
 
 - [Estructura del proyecto](#estructura-del-proyecto)
+- [Proceso de instalación del proyecto](#insalacion-del-proyecto)
 - [Ejecución del proyecto](#ejecución-del-proyecto)
 - [Desarrolladores](#desarrolladores)
 - [Licencia](#licencia)
@@ -66,6 +67,26 @@ El material del proyecto estará disponible en las siguientes carpetas:
     └── test_e.py          
 ```
 
+
+## Proceso de instalación del proyecto
+
+Primero debemos descarga este repositorio, para esto abriremos una consola de comandos en la ruta o carpeta que deseemos ingresando el sigiente comando:
+```
+git clone https://github.com/PalantirDagor/Apolo11.git
+```
+Luego podemos ingresar a la carpeta que creo el proceso de nombre "Apolo11" de manera manual, ó sobre la misma consola ya abierta ingresamos el comando: 
+```
+cd Apolo11
+```
+Y de cualquiera de estas dos formas estaremos dentro de la carpeta de la aplicacion a la cual debemos de realizar un proceso de preparación para su correcta ejecucion, y estos son los pasos:
+
+### Instalacion de entorno virtual
+Este paso es muy importante para poder ejecutar todo dentro de condiciones de software adecuadas para la aplicación, instalamos con el siguiente comando:
+```
+python -m venv env
+```
+Este proceso nos instalará una carpeta con nombre "env" y destro de esta estaran los scripts que contendran la información necesaria para el entorno virtual.
+Luego debemos de ingresar a esta carpeta ya sea de manera manual o por consola de comando hasta llegar a la carpeta scripts
 
 ## Ejecución del proyecto
 
