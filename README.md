@@ -115,6 +115,8 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
 Si todo funciona correctamete debemos instalar Poetry para el manejo de las librerias y la constuccion correcta de la aplicación ya que este ha sido hecho utilizandolo.
 
+### Instalacion de poetry
+
 ## Ejecución del proyecto
 
 Para ejecutar el proyecto se requiere ubicar la carpeta con los script en el directorio de su preferencia, se debe de iniciar una consola de comandos del sistema operativo huesped, dentro de la carpeta "apolo11" y utilizar el siguiente comando para correr los script de simulacion y reporte
