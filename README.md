@@ -115,7 +115,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
 Si todo funciona correctamete debemos instalar Poetry para el manejo de las librerias y la constuccion correcta de la aplicación ya que este ha sido hecho utilizandolo.
 
-### Instalacion de poetry
+### Instalación de poetry
 
 ## Ejecución del proyecto
 
