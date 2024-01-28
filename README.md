@@ -73,28 +73,24 @@ El material del proyecto estará disponible en las siguientes carpetas:
 
 ## Proceso de instalación del proyecto
 
-Primero debemos descarga este repositorio, para esto abriremos una consola de comandos en la ruta o carpeta que deseemos, ingresando el siguiente comando:
+Primero debemos descarga este repositorio, para esto se debe abrir una consola de comandos en la ruta o carpeta que se desee, ingresando el siguiente comando:
 ```
 git clone https://github.com/PalantirDagor/Apolo11.git
 ```
-Luego podemos ingresar a la carpeta que creo el proceso de nombre "Apolo11" de manera manual, ó sobre la misma consola ya abierta ingresamos el comando: 
+Luego se debe ingresar a la carpeta que creo el proceso de nombre **"Apolo11"** de manera manual, ó sobre la misma consola ya abierta ingresar el comando: 
 ```
 cd Apolo11
 ```
-Y usando cualquiera de estas dos formas estaremos dentro de la carpeta de la aplicación a la cual debemos realizar un proceso de preparación para su correcta ejecución, y estos son los pasos:
+Y usando cualquiera de estas dos formas se estará dentro de la carpeta de la aplicación a la cual se le debe realizar un proceso de preparación para su correcta ejecución, y estos son los pasos:
 
 ### Instalación de entorno virtual
 
-Este paso es muy importante para poder ejecutar todo dentro de condiciones de software adecuadas para la aplicación, instalar con el siguiente comando:
+Este paso es muy importante para poder ejecutar todo dentro de condiciones de software adecuadas para la aplicación (Estos pasos son para instalarlo en una maquina con sistema operativo Windows), instalar con el siguiente comando:
 ```
 python -m venv env
 ```
-Este proceso nos instalará una carpeta con nombre "env" y dentro de esta estarán los scripts que contendran la información necesaria para el entorno virtual.
+Este proceso nos instalará una carpeta con nombre "env" y dentro de esta, estarán los scripts que contendran la información necesaria para el entorno virtual.
 Luego se debe ingresar a esta carpeta ya sea de manera manual o por consola de comando hasta llegar a la carpeta scripts, si se hace a traves de comandos en la consola, usar:
-```
-cd env/Scripts
-```
-Ó para la plataforma Windows
 ```
 cd env\Scripts
 ```
@@ -141,7 +137,7 @@ Indicando que la herramienta ya se esta ejecutando. Si muestra el siguiente mens
 poetry : El término 'poetry' no se reconoce como nombre de un cmdlet, función, archivo de script o programa
 ejecutable.
 ```
-Se debe de  ingresar la ruta donde quedo instalado Poetry "...\AppData\Roaming\Python\Scripts" en las variables de entorno.
+Se debe de  ingresar la ruta donde quedo instalado Poetry "c:\...\AppData\Roaming\Python\Scripts" en las variables de entorno.
 
 ### Instalación de poetry en el entorno virtual
 
@@ -153,12 +149,12 @@ Ya instalada la herramienta, utilizar el comando:
 ```
 poetry install
 ```
-Este comando instalara todas las librerias y dependencias de la aplicación que haran que todo funcione correctamente y que queden guardadas en el entorno virutal para su ejecución, ya en este paso se debe de iniciar los pasos para su ejecución en el punto siguiente.
+Este comando instalará todas las librerias y dependencias de la aplicación que haran que todo funcione correctamente y que queden guardadas en el entorno virutal para su ejecución, ya en este paso se debe de iniciar los pasos para su ejecución en el punto siguiente.
 
 
 ## Ejecución del proyecto
 
-Para ejecutar el proyecto se requiere ubicar la carpeta con los script en el directorio de su preferencia, se debe de iniciar una consola de comandos del sistema operativo huesped, dentro de la carpeta "apolo11" y utilizar el siguiente comando para correr los script de simulacion y reporte
+Para ejecutar el proyecto se requiere ubicar la carpeta con los script en el directorio de su preferencia, se debe de iniciar una consola de comandos del sistema operativo huesped, dentro de la carpeta **"Apolo11"** y utilizar el siguiente comando para correr los script de simulacion y reporte
 
 ### Comando de Simulacion:
 
@@ -167,7 +163,7 @@ En la consola de comando se ingresará:
 python main.py -start simulation
 ```
 
-Este comando da inicio a la ejecución de la simulacion de datos, que por defecto correra por 20 segundos, este funcionamiento por defecto podra ser nodificado a gusto por quien lo inicie segun su necesidad tanto aumentando la cantidad de tiempo o disminuyendolo con el siguiente comando:
+Este comando da inicio a la ejecución de la simulacion de datos, que por defecto correra por 20 segundos, este funcionamiento por defecto podra ser modificado a gusto por quien lo inicie segun su necesidad tanto aumentando la cantidad de tiempo o disminuyendolo con el siguiente comando:
 ```
 python main.py -start simulation -sc 15
 ```
@@ -193,4 +189,4 @@ El Poryecto es creado y presentado por: **Jorge Alberto Molina Zapata**, **Elvis
 
 ## Licencia
 
-El contenido de este poryecto se proporciona bajo la Licencia **MIT**. Consulta el archivo de licencia almacenado en esta repositorio para mas información.
+El contenido de este proyecto se proporciona bajo la Licencia **MIT**. Consulta el archivo de licencia almacenado en esta repositorio para mas información.
