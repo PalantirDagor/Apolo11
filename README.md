@@ -176,7 +176,7 @@ python main.py -start simulation -sc 15
 
 Para la generacion del reporte, este es el comando
 ```
-python app.py -start report -nr nombre_reporte
+python main.py -start report -nr nombre_reporte
 ```
 Donde "-nr" indica a la aplicación el nombre que tendra el archivo con los datos generados en la evaluación y reporte del proceso surtido en la simulación.
 
