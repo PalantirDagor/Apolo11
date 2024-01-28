@@ -7,13 +7,7 @@ from src.utilities.config import Util_Config as config
 from src.utilities.files import FileUtils as file
 from src.utilities.generic import Utils as util
 
-class Row_file(BaseModel):
-    date: str = ""
-    mission: str = ""
-    device_type: str = ""
-    device_status: str = ""
-    hash: str = ""
-    
+
 class Simulator_Apolo11:
     """
     Simulator_Apolo11: Clase encargada de generar la simulación
@@ -47,14 +41,11 @@ class Simulator_Apolo11:
         Returns:
             dict[str,str]: Diccionario con el registro de la mision
         """
-        row: dict = {"date": time.strftime(config._instance.date_format), "mission": mission}
-
-        myrow = Row_file(date = "hola", 
-                         mission = mission, 
-                         device_type = util.generate_random2(self.__configuration_file["device_type"]),
-                         device_status = util.generate_random2(self.__configuration_file["device_status"]),
-                         hash="123")
-        print(myrow.__dict__)
+        
+        LC_UNKNOWN: str = 'unknown'
+        
+        row: dict = {"date": time.strftime(config._instance.date_format), 
+                     "mission": mission}
 
         if mission != "UNKN":
             row["device_type"] = util.generate_random(config._instance.device_type)
@@ -64,8 +55,8 @@ class Simulator_Apolo11:
                                              row.get("device_type"),
                                              row.get("device_status"))
         else:
-            row["device_type"] = "unknown"
-            row["device_status"] = "unknown"
+            row["device_type"] = LC_UNKNOWN
+            row["device_status"] = LC_UNKNOWN
             row["hash"] = ""
 
         logging.debug("Se han generado los datos del archivo")
@@ -99,13 +90,13 @@ class Simulator_Apolo11:
         Returns:
             str: Nombre del archivo
         """
+
         if self.__consecutive_file.get(mission) is None:
             self.__consecutive_file[mission] = 1
         else:
             self.__consecutive_file[mission] = self.__consecutive_file.get(mission) + 1
 
-        return f"""APL{mission}-{self.__execution_number:0>{config._instance.number_digits}}-
-                    {self.__consecutive_file.get(mission):0>{config._instance.number_digits}}.log"""
+        return f"APL{mission}-{self.__execution_number:0>{config._instance.number_digits}}-{self.__consecutive_file.get(mission):0>{config._instance.number_digits}}.log"
 
     def _start_simulator(self) -> bool:
         """Inicia el proceso de simulación

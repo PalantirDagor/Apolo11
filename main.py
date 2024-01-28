@@ -3,7 +3,7 @@ import threading
 import argparse
 import logging
 from src.utilities.config import Util_Config
-from src.Simulator.simulator import Simulator_Apolo11 as apl11
+from src.simulator.simulator import Simulator_Apolo11 as apl11
 from src.dashboard.process import Report as apl11_report
 
 # función definida por el usuario para validar si el valor es un número positivo
@@ -42,7 +42,8 @@ def main():
             while True:
                 thread = threading.Thread(target = call_simulator, args=(i,args.lg))
                 thread.start()
-                time.sleep(args.sc)
+                # time.sleep(args.sc)
+                time.sleep(3600)
                 i += 1
         except KeyboardInterrupt:
             logging.info("Stop: Finalizando ejecución, espere por favor....")
