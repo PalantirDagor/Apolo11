@@ -52,6 +52,8 @@ El material del proyecto estará disponible en las siguientes carpetas:
 │    │   ├── __init__.py
 │    │   └── process.py
 │    └── utilities         # Carpeta con los utilitarios que sirven de manera global al poryecto.
+│        ├── logging
+│        │   └── logger_apolo11.py
 │        ├── __init__.py
 |        ├── config.py  
 │        ├── control_messages.py
@@ -60,8 +62,12 @@ El material del proyecto estará disponible en las siguientes carpetas:
 └── tests                  # Carpeta con la logica para realizar pruebas automatizadas al proyecto.
     ├── __init__.py
     ├── dashboard.py
-    └── simulator.py 
-    └── utilities.py          
+    │   └── test_process.py
+    ├── simulator.py
+    │   └── test_simulator.py 
+    └── utilities.py
+        ├── test_files.py
+        └── test_generic.py      
 ```
 
 
