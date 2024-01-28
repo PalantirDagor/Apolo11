@@ -67,7 +67,7 @@ El material del proyecto estará disponible en las siguientes carpetas:
 
 ## Proceso de instalación del proyecto
 
-Primero debemos descarga este repositorio, para esto abriremos una consola de comandos en la ruta o carpeta que deseemos ingresando el sigiente comando:
+Primero debemos descarga este repositorio, para esto abriremos una consola de comandos en la ruta o carpeta que deseemos, ingresando el sigiente comando:
 ```
 git clone https://github.com/PalantirDagor/Apolo11.git
 ```
@@ -75,7 +75,7 @@ Luego podemos ingresar a la carpeta que creo el proceso de nombre "Apolo11" de m
 ```
 cd Apolo11
 ```
-Y de cualquiera de estas dos formas estaremos dentro de la carpeta de la aplicacion a la cual debemos de realizar un proceso de preparación para su correcta ejecucion, y estos son los pasos:
+Y usando cualquiera de estas dos formas estaremos dentro de la carpeta de la aplicación a la cual debemos realizar un proceso de preparación para su correcta ejecución, y estos son los pasos:
 
 ### Instalacion de entorno virtual
 Este paso es muy importante para poder ejecutar todo dentro de condiciones de software adecuadas para la aplicación, instalamos con el siguiente comando:
@@ -97,12 +97,21 @@ Activate.ps1
 ```
 Si no se ejecuta y genera error como este:
 ```
-ctivate.ps1 : El término 'activate.ps1' no se reconoce como nombre de un cmdlet, función, archivo de script o programa ejecutable. Compruebe si escribió correctamente el nombre o, si incluyó una ruta de acceso, compruebe 
+activate.ps1 : El término 'activate.ps1' no se reconoce como nombre de un cmdlet, función, archivo de script o programa ejecutable. Compruebe si escribió correctamente el nombre o, si incluyó una ruta de acceso, compruebe 
 que dicha ruta es correcta e inténtelo de nuevo.
 ```
 Utilizar el siguiente comando:
 ```
 .\Activate.ps1
+```
+Si el error es uno como este:
+```
+Activate.ps1 : No se puede cargar el archivo c:\...\Apolo11\env\Scripts\Activate.ps1 porque la ejecución    
+de scripts está deshabilitada en este sistema.
+```
+utiliza el siguiente comando que habilitara el uso de scripts en tu maquina:
+```
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
 Si todo funciona correctamete debemos instalar Poetry para el manejo de las librerias y la constuccion correcta de la aplicación ya que este ha sido hecho utilizandolo.
 
