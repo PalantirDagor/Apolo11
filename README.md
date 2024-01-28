@@ -67,7 +67,7 @@ El material del proyecto estará disponible en las siguientes carpetas:
 
 ## Proceso de instalación del proyecto
 
-Primero debemos descarga este repositorio, para esto abriremos una consola de comandos en la ruta o carpeta que deseemos, ingresando el sigiente comando:
+Primero debemos descarga este repositorio, para esto abriremos una consola de comandos en la ruta o carpeta que deseemos, ingresando el siguiente comando:
 ```
 git clone https://github.com/PalantirDagor/Apolo11.git
 ```
@@ -78,20 +78,20 @@ cd Apolo11
 Y usando cualquiera de estas dos formas estaremos dentro de la carpeta de la aplicación a la cual debemos realizar un proceso de preparación para su correcta ejecución, y estos son los pasos:
 
 ### Instalación de entorno virtual
-Este paso es muy importante para poder ejecutar todo dentro de condiciones de software adecuadas para la aplicación, instalamos con el siguiente comando:
+Este paso es muy importante para poder ejecutar todo dentro de condiciones de software adecuadas para la aplicación, instalar con el siguiente comando:
 ```
 python -m venv env
 ```
-Este proceso nos instalará una carpeta con nombre "env" y destro de esta estaran los scripts que contendran la información necesaria para el entorno virtual.
-Luego debemos de ingresar a esta carpeta ya sea de manera manual o por consola de comando hasta llegar a la carpeta scripts, si lo hacemos a traves de comandos en la consola, usaremos:
+Este proceso nos instalará una carpeta con nombre "env" y dentro de esta estarán los scripts que contendran la información necesaria para el entorno virtual.
+Luego se debe ingresar a esta carpeta ya sea de manera manual o por consola de comando hasta llegar a la carpeta scripts, si se hace a traves de comandos en la consola, usar:
 ```
 cd env/Scripts
 ```
-Ó para la plataforma windows
+Ó para la plataforma Windows
 ```
 cd env\Scripts
 ```
-Una ves dentro de esta carpeta "Scripts" ingresamos el comando:
+Una ves dentro de esta carpeta "Scripts" ingresar el comando:
 ```
 Activate.ps1
 ```
@@ -109,26 +109,26 @@ Si el error es uno como este:
 Activate.ps1 : No se puede cargar el archivo c:\...\Apolo11\env\Scripts\Activate.ps1 porque la ejecución    
 de scripts está deshabilitada en este sistema.
 ```
-utiliza el siguiente comando que habilitara el uso de scripts en tu maquina:
+Utilizar el siguiente comando que habilitará el uso de scripts en su maquina:
 ```
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
-Si todo funciona correctamete debemos instalar Poetry para el manejo de las librerias y la constuccion correcta de la aplicación ya que este ha sido hecho utilizandolo.
+Si todo funciona correctamete debe instalar Poetry para el manejo de las librerias y la constucción correcta de la aplicación ya que este ha sido hecho utilizando esta herramienta.
 
 ### Instalación de poetry
-En una consola de comandos nueva debemos de descargar Poetry con el siguiente comando para Windows:
+En una consola de comandos nueva debe de descargar Poetry con el siguiente comando para Windows:
 ```
 (Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | py -
 ```
-Luego ya instalado Poetry, verificamos con el comando:
+Luego ya instalado Poetry, verificar con el comando:
 ```
 poetry --version
 ```
-El cual nos indicará la version instalada y nos confirmará al mostrarnos la versión:
+El cual indicará la version instalada y confirmará al mostrar la versión de esta manera:
 ```
 Poetry (version x.x.x)
 ```
-Indicando que la herramienta ya se esta ejecutando. Si nos muestra el siguiente mensaje de error:
+Indicando que la herramienta ya se esta ejecutando. Si muestra el siguiente mensaje de error:
 ```
 poetry : El término 'poetry' no se reconoce como nombre de un cmdlet, función, archivo de script o programa
 ejecutable.
@@ -136,15 +136,15 @@ ejecutable.
 Se debe de  ingresar la ruta donde quedo instalado Poetry "...\AppData\Roaming\Python\Scripts" en las variables de entorno.
 
 ### Instalación de poetry en el entorno virtual
-Luego con el entorno virtual activado, devemos de ingresar el siguiente comando para iniciar la instalacion de Poetry dentro del entorno:
+Luego con el entorno virtual activado, se debe de ingresar el siguiente comando para iniciar la instalación de Poetry dentro del entorno:
 ```
 python -m poetry
 ```
-Ya instalada la herramienta, utilizaremos el comando:
+Ya instalada la herramienta, utilizar el comando:
 ```
 poetry install
 ```
-Este comando instalara todas las librerias y dependencias de la aplicación que haran que todo funcione correctamente y que queden guardadas en el entorno virutal para su ejecución, ya en este paso debemos de iniciar los pasos para su ejecución en el siguiente punto.
+Este comando instalara todas las librerias y dependencias de la aplicación que haran que todo funcione correctamente y que queden guardadas en el entorno virutal para su ejecución, ya en este paso se debe de iniciar los pasos para su ejecución en el punto siguiente.
 
 
 ## Ejecución del proyecto
