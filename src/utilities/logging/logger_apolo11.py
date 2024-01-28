@@ -6,7 +6,7 @@ from logging import handlers
 import yaml
 from typing import List
 
-from src.utilities.files import FileUtils as file
+#from src.utilities.files import FileUtils as file
 
 
 def get_logger(
@@ -29,8 +29,10 @@ def get_logger(
         _type_: _description_
     """
     constants_path: str = os.path.join(os.path.join("setting", "constants_properties.yaml"))
-    constants_dict: dict = yaml.load(file.read_file(constants_path).get("object"),
-                                     Loader=yaml.FullLoader)
+    # constants_dict: dict = yaml.load(file.read_file(constants_path).object,
+    #                                  Loader=yaml.FullLoader)
+    with open(constants_path) as file:
+        constants_dict = yaml.safe_load(file.read())
 
     log_formats: List[str] = constants_dict['date_formats']
     number_constants: List[int] = constants_dict['number_constants']

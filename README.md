@@ -36,11 +36,11 @@ El material del proyecto estará disponible en las siguientes carpetas:
 ├── main.py                # Archivo principal de ejecución
 ├── poetry.lock            # registro de las dependencias usadas en el proyecto
 ├── pyproject.toml         # Requisitos del sistema de compilación
-├── Documents              # Carpeta con el archivo del reto.
+├── documents              # Carpeta con el archivo del reto.
 │   └── 002.problema.pdf
-├── Files                  # Carpeta con los archivos generados por la app 
+├── files                  # Carpeta con los archivos generados por la app 
 │   └── algún-archivo
-├── setting                # Carpeta con los archivos de configuración del proyecto.
+├── settings                # Carpeta con los archivos de configuración del proyecto.
 │   ├── configuration_file.yaml
 │   └── message.yaml
 ├── src                    # Carpeta contenedora de las carpetas que estructuran el proyecto.
@@ -91,6 +91,12 @@ python app.py -start report -nr nombre_reporte
 ```
 Donde "-nr" indica a la aplicación el nombre que tendra el archivo con los datos generados en la evaluación y reporte del proceso surtido en la simulación.
 
+### Comando para ejecucion de pruebas:
+
+Para la generacion de pruebas de covertura, este es el comando
+```
+python -m pytest --cov
+```
 
 ## Desarrolladores 
 
