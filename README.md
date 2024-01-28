@@ -77,7 +77,7 @@ cd Apolo11
 ```
 Y usando cualquiera de estas dos formas estaremos dentro de la carpeta de la aplicación a la cual debemos realizar un proceso de preparación para su correcta ejecución, y estos son los pasos:
 
-### Instalacion de entorno virtual
+### Instalación de entorno virtual
 Este paso es muy importante para poder ejecutar todo dentro de condiciones de software adecuadas para la aplicación, instalamos con el siguiente comando:
 ```
 python -m venv env
