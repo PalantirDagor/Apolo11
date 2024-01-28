@@ -83,7 +83,28 @@ Este paso es muy importante para poder ejecutar todo dentro de condiciones de so
 python -m venv env
 ```
 Este proceso nos instalará una carpeta con nombre "env" y destro de esta estaran los scripts que contendran la información necesaria para el entorno virtual.
-Luego debemos de ingresar a esta carpeta ya sea de manera manual o por consola de comando hasta llegar a la carpeta scripts
+Luego debemos de ingresar a esta carpeta ya sea de manera manual o por consola de comando hasta llegar a la carpeta scripts, si lo hacemos a traves de comandos en la consola, usaremos:
+```
+cd env/Scripts
+```
+Ó para para la plataforma windows
+```
+cd env\Scripts
+```
+Una ves dentro de esta carpeta "Scripts" ingresamos el comando:
+```
+Activate.ps1
+```
+Si no se ejecuta y genera error como este:
+```
+ctivate.ps1 : El término 'activate.ps1' no se reconoce como nombre de un cmdlet, función, archivo de script o programa ejecutable. Compruebe si escribió correctamente el nombre o, si incluyó una ruta de acceso, compruebe 
+que dicha ruta es correcta e inténtelo de nuevo.
+```
+Utilizar el siguiente comando:
+```
+.\Activate.ps1
+```
+Si todo funciona correctamete debemos instalar Poetry para el manejo de las librerias y la constuccion correcta de la aplicación ya que este ha sido hecho utilizandolo.
 
 ## Ejecución del proyecto
 
