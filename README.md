@@ -21,7 +21,7 @@ desafiante.
 ## Tabla de contenido
 
 - [Estructura del proyecto](#estructura-del-proyecto)
-- [Proceso de instalación del proyecto](#insalacion-del-proyecto)
+- [Proceso de instalación del proyecto](#proceso-de-instalación-del-proyecto)
 - [Ejecución del proyecto](#ejecución-del-proyecto)
 - [Desarrolladores](#desarrolladores)
 - [Licencia](#licencia)
