@@ -84,6 +84,7 @@ cd Apolo11
 Y usando cualquiera de estas dos formas estaremos dentro de la carpeta de la aplicación a la cual debemos realizar un proceso de preparación para su correcta ejecución, y estos son los pasos:
 
 ### Instalación de entorno virtual
+
 Este paso es muy importante para poder ejecutar todo dentro de condiciones de software adecuadas para la aplicación, instalar con el siguiente comando:
 ```
 python -m venv env
@@ -122,6 +123,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 Si todo funciona correctamete debe instalar Poetry para el manejo de las librerias y la constucción correcta de la aplicación ya que este ha sido hecho utilizando esta herramienta.
 
 ### Instalación de poetry
+
 En una consola de comandos nueva debe de descargar Poetry con el siguiente comando para Windows:
 ```
 (Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | py -
@@ -142,6 +144,7 @@ ejecutable.
 Se debe de  ingresar la ruta donde quedo instalado Poetry "...\AppData\Roaming\Python\Scripts" en las variables de entorno.
 
 ### Instalación de poetry en el entorno virtual
+
 Luego con el entorno virtual activado, se debe de ingresar el siguiente comando para iniciar la instalación de Poetry dentro del entorno:
 ```
 python -m poetry
