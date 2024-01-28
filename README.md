@@ -87,7 +87,7 @@ Luego debemos de ingresar a esta carpeta ya sea de manera manual o por consola d
 ```
 cd env/Scripts
 ```
-Ó para para la plataforma windows
+Ó para la plataforma windows
 ```
 cd env\Scripts
 ```
@@ -116,6 +116,36 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 Si todo funciona correctamete debemos instalar Poetry para el manejo de las librerias y la constuccion correcta de la aplicación ya que este ha sido hecho utilizandolo.
 
 ### Instalación de poetry
+En una consola de comandos nueva debemos de descargar Poetry con el siguiente comando para Windows:
+```
+(Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | py -
+```
+Luego ya instalado Poetry, verificamos con el comando:
+```
+poetry --version
+```
+El cual nos indicará la version instalada y nos confirmará al mostrarnos la versión:
+```
+Poetry (version x.x.x)
+```
+Indicando que la herramienta ya se esta ejecutando. Si nos muestra el siguiente mensaje de error:
+```
+poetry : El término 'poetry' no se reconoce como nombre de un cmdlet, función, archivo de script o programa
+ejecutable.
+```
+Se debe de  ingresar la ruta donde quedo instalado Poetry "...\AppData\Roaming\Python\Scripts" en las variables de entorno.
+
+### Instalación de poetry en el entorno virtual
+Luego con el entorno virtual activado, devemos de ingresar el siguiente comando para iniciar la instalacion de Poetry dentro del entorno:
+```
+python -m poetry
+```
+Ya instalada la herramienta, utilizaremos el comando:
+```
+poetry install
+```
+Este comando instalara todas las librerias y dependencias de la aplicación que haran que todo funcione correctamente y que queden guardadas en el entorno virutal para su ejecución, ya en este paso debemos de iniciar los pasos para su ejecución en el siguiente punto.
+
 
 ## Ejecución del proyecto
 
@@ -125,12 +155,12 @@ Para ejecutar el proyecto se requiere ubicar la carpeta con los script en el dir
 
 En la consola de comando se ingresará:
 ```
-python app.py -start simulation
+python main.py -start simulation
 ```
 
 Este comando da inicio a la ejecución de la simulacion de datos, que por defecto correra por 20 segundos, este funcionamiento por defecto podra ser nodificado a gusto por quien lo inicie segun su necesidad tanto aumentando la cantidad de tiempo o disminuyendolo con el siguiente comando:
 ```
-python app.py -start simulation -sc 15
+python main.py -start simulation -sc 15
 ```
 
 ### Comando Generacion de Reporte:
