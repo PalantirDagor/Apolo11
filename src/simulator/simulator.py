@@ -2,6 +2,7 @@ import time
 import logging
 import sys
 import json
+from typing import Dict
 
 from src.utilities.config import Util_Config as config
 from src.utilities.files import FileUtils as file
@@ -36,7 +37,7 @@ class Simulator_Apolo11:
         return self.__execution_number
 
     @property
-    def consecutive_file(self) -> dict[str, int]:
+    def consecutive_file(self) -> Dict[str, int]:
         return self.__consecutive_file
 
     @consecutive_file.setter
@@ -46,7 +47,7 @@ class Simulator_Apolo11:
         else:
             self.__consecutive_file[mission] = self.__consecutive_file.get(mission) + 1
 
-    def __generate_data(self, mission: str) -> dict:
+    def __generate_data(self, mission: str) -> Dict[str, str]:
         """
         Método privado que genera los datos simulados de cada la misión
 

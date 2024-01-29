@@ -30,7 +30,7 @@ class Report:
             # 2. Creo un archivo con los datos consolidados
             self.__save_consolidated(consolidate_events)
 
-            # 3. Creo un DataFrame con los datos concolidados
+            # 3. Creo un DataFrame con los datos consolidados
             df = self.__dataframe_creation(consolidate_events)
 
             # 4. Genero los diferentes tipos de reportes

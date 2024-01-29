@@ -1,11 +1,7 @@
-import logging
-from src.utilities.logging.logger_apolo11 import get_logger
 from random import (randrange, choice)
 from typing import List, Tuple
 from pydantic import BaseModel
 from typing import Dict, Union
-
-logger = get_logger('Utils', logger_level=logging.ERROR)
 
 
 class Utils():
@@ -25,8 +21,7 @@ class Utils():
         try:
             return choice(list_elements)
         except Exception as e:
-            logger.error('generate_random2', e)
-            return
+            return str(e)
 
     @staticmethod
     def generate_random_number(initial_value: int, final_value: int) -> int:
@@ -44,8 +39,7 @@ class Utils():
             number_random: int = randrange(initial_value, final_value, 1)
             return number_random
         except Exception as e:
-            logger.error("generate_random", e)
-            return
+            return str(e)
 
     @staticmethod
     def generate_hash(*datos: Tuple) -> str:
