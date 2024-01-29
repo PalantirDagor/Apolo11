@@ -31,6 +31,21 @@ class Simulator_Apolo11:
         self.__execution_number: int = execution_number
         self.__consecutive_file: dict[str, int] = {}
 
+    @property
+    def execution_number(self) -> int:
+        return self.__execution_number
+
+    @property
+    def consecutive_file(self) -> dict[str, int]:
+        return self.__consecutive_file
+
+    @consecutive_file.setter
+    def consecutive_file(self, mission: str) -> None:
+        if self.__consecutive_file.get(mission) is None:
+            self.__consecutive_file[mission] = 1
+        else:
+            self.__consecutive_file[mission] = self.__consecutive_file.get(mission) + 1
+
     def __generate_data(self, mission: str) -> dict:
         """
         Método privado que genera los datos simulados de cada la misión
@@ -44,7 +59,8 @@ class Simulator_Apolo11:
 
         LC_UNKNOWN: str = 'unknown'
 
-        row: dict = {"date": time.strftime(config._instance.date_format), "mission": mission}
+        row: dict = {"date": time.strftime(config._instance.date_format),
+                     "mission": mission}
 
         if mission != "UNKN":
             row["device_type"] = util.generate_random(config._instance.device_type)
@@ -89,15 +105,11 @@ class Simulator_Apolo11:
         Returns:
             str: Nombre del archivo
         """
+        # Consetutivo de la mision
+        self.consecutive_file = mission
 
-        if self.__consecutive_file.get(mission) is None:
-            self.__consecutive_file[mission] = 1
-        else:
-            self.__consecutive_file[mission] = self.__consecutive_file.get(mission) + 1
-
-        return (
-            f"APL{mission}-{self.__execution_number:0>{config._instance.number_digits}}-"
-            f"{self.__consecutive_file.get(mission):0>{config._instance.number_digits}}.log")
+        return (f"APL{mission}-{self.execution_number:0>{config._instance.number_digits}}-"
+                f"{self.consecutive_file.get(mission):0>{config._instance.number_digits}}.log")
 
     def _start_simulator(self) -> bool:
         """Inicia el proceso de simulación
@@ -109,12 +121,12 @@ class Simulator_Apolo11:
             ln_files: int = util.generate_random_number(config._instance.file_quantity[0],
                                                         config._instance.file_quantity[1])
 
-            logging.debug(f"Inicia la creacion de {ln_files} archivos para le ejecución nro {self.__execution_number}")
+            logging.debug(f"Inicia la creacion de {ln_files} archivos para le ejecución nro {self.execution_number}")
 
             for i in range(0, ln_files):
-                self.__create_file()
+                self.__create_file(config._instance.rows_file)
 
-            logging.info(f"Se han generado {ln_files} archivos en la ejecución nro {self.__execution_number}")
+            logging.info(f"Se han generado {ln_files} archivos en la ejecución nro {self.execution_number}")
             return True
 
         except Exception as ex:
