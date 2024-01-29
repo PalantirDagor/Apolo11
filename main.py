@@ -42,8 +42,7 @@ def main():
             while True:
                 thread = threading.Thread(target = call_simulator, args=(i,args.lg))
                 thread.start()
-                # time.sleep(args.sc)
-                time.sleep(3600)
+                time.sleep(args.sc)
                 i += 1
         except KeyboardInterrupt:
             logging.info("Stop: Finalizando ejecución, espere por favor....")

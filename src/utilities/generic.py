@@ -7,6 +7,7 @@ from typing import Dict, Union
 
 logger = get_logger('Utils', logger_level=logging.ERROR)
 
+
 class Utils():
 
     # genera el aleatorio de las listas de misiones, estados etc..

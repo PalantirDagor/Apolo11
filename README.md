@@ -51,7 +51,7 @@ El material del proyecto estará disponible en las siguientes carpetas:
 │    ├── dashboard         # Carpeta con la logica con los resultados de la ejecución.
 │    │   ├── __init__.py
 │    │   └── process.py
-│    └── utilities         # Carpeta con los utilitarios que sirven de manera global al poryecto.
+│    └── utilities         # Carpeta con los utilitarios que sirven de manera global al proyecto.
 │        ├── logging
 │        │   └── logger_apolo11.py
 │        ├── __init__.py
@@ -163,7 +163,7 @@ En la consola de comando se ingresará:
 python main.py -start simulation
 ```
 
-Este comando da inicio a la ejecución de la simulacion de datos, que por defecto correra por 20 segundos, este funcionamiento por defecto podra ser modificado a gusto por quien lo inicie segun su necesidad tanto aumentando la cantidad de tiempo o disminuyendolo con el siguiente comando:
+Este comando da inicio a la ejecución de la simulacion de datos, que por defecto correra cada 20 segundos, este funcionamiento por defecto podra ser modificado a gusto por quien lo inicie segun su necesidad tanto aumentando la cantidad de tiempo o disminuyendolo con el siguiente comando:
 ```
 python main.py -start simulation -sc 15
 ```
