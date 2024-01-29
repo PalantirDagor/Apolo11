@@ -1,0 +1,42 @@
+#Lista de los posibles estados de una misión, para agregar anteponga el guion medio (-) seguido del nombre del estado
+# ADVERTENCIA: no eliminar el estado - UNKNOWN, porque generaría comportamientos diferentes en la aplicación
+
+device_status:
+              - UNKNOWN
+              - EXCELLENT
+              - WARNING
+              - FAULTY
+              - KILLED
+
+#Lista de los códigos de las diferentes misiones, para agregar anteponga el guion medio (-) seguido del nombre de la misión
+
+mission:
+            - ORBONE
+            - CLNM
+            - TMRS
+            - GALXONE
+            - UNKN
+
+#Lista de los tipos de dispositivos disponibles, para agregar anteponga el guion medio (-) seguido del nombre del dispositivo
+
+device_type:
+            - NAVE
+            - TRAJE
+            - SATELITE
+            - TRANSBORDADOR
+
+#Lista con un valor inicial y un valor final dentro de este rango se calcula la cantidad de
+#archivos que se generaran por ciclo de simulación, estos valores deben ser numéricos 
+#y el primer valor debe ser menor que el segundo valor, de no ser así se generaría un comportamiento diferente de la aplicación
+
+file_quantity:
+            - 1
+            - 100
+
+# Formato de fecha utilizado por la aplicacion para la generacion de los datos
+date_format: '%Y%m%d%H%M%S'
+
+# Cantidad de dígitos que tendrá el nombramiento de archivos de la aplicación
+# debe ser un valor numérico
+
+number_digits: 4 

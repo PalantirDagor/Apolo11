@@ -1,0 +1,9 @@
+date_formats: 
+          - '%Y%m%d%H%M%S'
+          - '%d/%m/%Y %H:%M:%S'
+number_constants:
+          - 7
+          - 5242880
+string_constants:
+          - 'UnknowNameLog'
+          - 'UnknowApp'
