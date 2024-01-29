@@ -40,3 +40,6 @@ date_format: '%Y%m%d%H%M%S'
 # debe ser un valor numérico
 
 number_digits: 4 
+
+# Cantidad de filas por archivo
+rows_file: 1
