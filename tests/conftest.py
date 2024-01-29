@@ -1,4 +1,5 @@
 import pytest
+import time
 from src.utilities.files import FileUtils
 from src.utilities.config import Util_Config
 from src.utilities.generic import Utils as Util
@@ -17,5 +18,6 @@ def app(request):
     app.files = FileUtils
     app.util = Util
     app.simulator = Apolo11(20)
+    time.sleep(40)
     app.report = Report(20)
     return app
