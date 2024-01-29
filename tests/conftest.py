@@ -3,7 +3,7 @@ from src.utilities.files import FileUtils
 from src.utilities.config import Util_Config
 from src.utilities.generic import Utils as Util
 from src.dashboard.process import Report
-from src.Simulator.simulator import Simulator_Apolo11 as apolo11
+from src.simulator.simulator import Simulator_Apolo11 as apolo11
 
 
 @pytest.fixture(scope="session")

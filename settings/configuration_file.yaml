@@ -31,7 +31,7 @@ device_type:
 
 file_quantity:
             - 1
-            - 10
+            - 100
 
 # Formato de fecha utilizado por la aplicacion para la generacion de los datos
 date_format: '%Y%m%d%H%M%S'

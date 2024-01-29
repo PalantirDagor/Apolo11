@@ -41,11 +41,10 @@ class Simulator_Apolo11:
         Returns:
             dict[str,str]: Diccionario con el registro de la mision
         """
-        
+
         LC_UNKNOWN: str = 'unknown'
-        
-        row: dict = {"date": time.strftime(config._instance.date_format), 
-                     "mission": mission}
+
+        row: dict = {"date": time.strftime(config._instance.date_format), "mission": mission}
 
         if mission != "UNKN":
             row["device_type"] = util.generate_random(config._instance.device_type)
@@ -96,7 +95,9 @@ class Simulator_Apolo11:
         else:
             self.__consecutive_file[mission] = self.__consecutive_file.get(mission) + 1
 
-        return f"APL{mission}-{self.__execution_number:0>{config._instance.number_digits}}-{self.__consecutive_file.get(mission):0>{config._instance.number_digits}}.log"
+        return (
+            f"APL{mission}-{self.__execution_number:0>{config._instance.number_digits}}-"
+            f"{self.__consecutive_file.get(mission):0>{config._instance.number_digits}}.log")
 
     def _start_simulator(self) -> bool:
         """Inicia el proceso de simulación
